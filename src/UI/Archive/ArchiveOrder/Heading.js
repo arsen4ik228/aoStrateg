@@ -1,9 +1,33 @@
 import * as React from 'react';
 import { Box, Grid } from '@mui/material';
 import {useParams} from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getWorkModal } from '../../../BLL/workSlice';
+
 const Heading = () => {
-    
-const {number} = useParams();
+const dispatch = useDispatch();    
+const {accountId,number} = useParams();
+
+
+
+const listModalTitles = useSelector(
+  (state) => state.work.workModalTitles
+);
+const listModalOrder = useSelector(
+  (state) => state.work?.workModalOrder || {}
+);
+const allIds = listModalTitles.map((row) => row.id);
+
+useEffect(() => 
+{    
+    dispatch(getWorkModal({ accountId: accountId, orderId: number }));
+
+  },[])
+console.log(number)
+console.log(listModalOrder)
+console.log(listModalTitles)
+
 
     return (
 

@@ -30,7 +30,7 @@ const App = () => {
               <Route path="new" element={<Navigate replace to="start" />} ></Route>
               <Route
                 path="work"
-                element={<></>}
+                element={<WorkMain></WorkMain>}
               ></Route>
               <Route
                 path="archive"
@@ -65,8 +65,13 @@ const App = () => {
               </New>
             </>
           } ></Route>
-          
- <        Route path=":accountId/archive/:number" element={<ArchiveOrder />} />
+          <Route path=":accountId/new/start/:number" element={<Add/>}/>
+          <Route path=":accountId/new/main/:number" element={<Add/>}/>
+          <Route path=":accountId/new/personal/:number" element={<Add/>}/>
+
+          <Route path=":accountId/work/:number" element={<Order/>} />
+
+          <Route path=":accountId/archive/:number" element={<ArchiveOrder />} />
 
         {/* <Route path=":accountId/archive/*"
           element={

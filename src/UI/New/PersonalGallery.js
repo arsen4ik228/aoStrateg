@@ -22,16 +22,18 @@ const PersonalGallery = () => {
   const booklets = useSelector((state) => state.products.productsStart);
 
   return (
-    <NavLink to="add" className="no-style-link">
     <div className={style.photoGallery}>
       {booklets.map((booklet) => (
+              <NavLink to={`${booklet.id}`} className="no-style-link">
+
         <div key={booklet.id} className={style.photoItem}>
           <img src={book} alt='picture' className={style.photo} />
           <div className={style.photoTitle}>{booklet.abbreviation}</div>
         </div>
+      </NavLink>
       ))}
     </div>
-    </NavLink>
+    
   );
 };
 

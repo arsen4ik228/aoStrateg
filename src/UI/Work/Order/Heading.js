@@ -1,9 +1,33 @@
 import * as React from 'react';
 import { Box, Grid } from '@mui/material';
 import vector from './src/Vector.svg'
-
+import {useParams} from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getWorkModal } from '../../../BLL/workSlice';
 const Heading = () => {
     
+
+  const dispatch = useDispatch();    
+const {accountId,number} = useParams();
+
+  useEffect(() => 
+    {    
+        dispatch(getWorkModal({ accountId: accountId, orderId: number }));
+    
+      },[])
+
+      const listModalTitles = useSelector(
+        (state) => state.work.workModalTitles
+      );
+      const listModalOrder = useSelector(
+        (state) => state.work?.workModalOrder || {});
+
+        console.log(number)
+        console.log(listModalOrder)
+        console.log(listModalTitles)
+
+
     return (
 
         <Box sx={{ flexGrow: 1 }}> 

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getProducts } from '../../BLL/productSlice';
 import style from './PhotoGallery.module.css'; // Убедитесь, что файл CSS импортирован
-import { NavLink } from 'react-router-dom';
+import { NavLink,Link } from 'react-router-dom';
 
 
 const StartGallery = () => {
@@ -21,16 +21,18 @@ const StartGallery = () => {
   const booklets = useSelector((state) => state.products.productsStart);
 
   return (
-    <NavLink to="add" className="no-style-link">
+    
     <div className={style.photoGallery}>
       {booklets.map((booklet) => (
+          <NavLink to={`${booklet.id}`} className="no-style-link">
         <div key={booklet.id} className={style.photoItem}>
           <img src={book} alt='picture' className={style.photo} />
           <div className={style.photoTitle}>{booklet.abbreviation}</div>
         </div>
+    </NavLink>
       ))}
     </div>
-    </NavLink>
+    
   );
 };
 

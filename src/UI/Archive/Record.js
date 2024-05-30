@@ -3,6 +3,7 @@ import { Box, Grid } from '@mui/material';
 import { NavLink,useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { getCompleted } from '../../BLL/completedSlice';
+
 const Record = () => {
 
 
@@ -15,19 +16,27 @@ const Record = () => {
 
   const list = useSelector((state) => state.completed.completed);
 
+  // const listModalTitles = useSelector(
+  //   (state) => state.work?.workModalTitles || []
+  // );
+  // const listModalOrder = useSelector(
+  //   (state) => state.work?.workModalOrder || {}
+  // );
+
+  
   return (
     // МОЖНО ПЕРЕДАВАТЬ ЗНАЧЕНИЯ КАК ЭЛЕМЕНТЫ МАСИВА ИЗ ВЫЗЫВАЮЩЕГО ФАЙЛА
-
+    
 
       <Box sx={{ flexGrow: 1 }}> {/* Добавляем внутренний отступ для удобства чтения */}
         {list.map((element) => ( 
-          <NavLink to={`${element.orderNumber}`}className="no-style-link">
+          <NavLink to={`${element.id}`}className="no-style-link">
         <Grid key={element.id} container sx={{ height: '90px', borderBottom: '1px solid #B4B4B4' }}>
           {/* Колонка 1 */}
           <Grid container item xs={3} sx={{ justifyContent: 'center', alignItems: 'center' }}>
             <Box sx={{ fontSize: '16px', fontWeight: 'Montserrat', fontWeight: '400', mr: '30px', ml: '30px', textAlign: 'center', justifyContent: 'center', alignItems: 'center', color: '#B4B4B4' }}>{element.orderNumber}</Box>
           </Grid>
-
+          
           {/* Колонка 2 */}
           <Grid container item xs={3} sx={{ justifyContent: 'center' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center' }}>
