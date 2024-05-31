@@ -8,6 +8,7 @@ import archiveReducer from './admin/archiveSlice';
 import depositAdminReducer from './admin/depositAdminSlice';
 import userReducer from './admin/userSlice';
 import priceListReducer from './admin/priceListSlice';
+import postReducer from './postSlice';
 
 export default configureStore({
   reducer: {
@@ -20,5 +21,6 @@ export default configureStore({
     adminDeposit: depositAdminReducer,
     adminUser: userReducer,
     adminPriceList: priceListReducer,
+    post: postReducer,
   },
 });

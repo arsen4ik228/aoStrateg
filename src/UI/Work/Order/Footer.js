@@ -1,7 +1,16 @@
 import * as React from 'react';
 import { Typography,Box } from '@mui/material';
-
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 const Footer = () => {
+  const {number} = useParams();
+  const list = useSelector((state) => state.work?.work || []);
+  // Находим элемент в списке по id
+  const targetElement = list.find(item => item.id === number);
+
+  // Если элемент найден, берем его поле SUM, иначе отображаем 0
+  const sumValue = targetElement? targetElement.SUM : 0;
+
   return (
     <Box sx={{mt:'71px'}}>
     <footer style={{
@@ -23,7 +32,7 @@ const Footer = () => {
          Итого:
       </Typography>
       <Typography sx={{fontWeight: 'Montserrat', fontWeight: '700',fontSize:'18px',color:'#3A3A3A',lineHeight:'22px'}}>
-        29 000 $
+        {sumValue} $
       </Typography>
     </footer>
     </Box>

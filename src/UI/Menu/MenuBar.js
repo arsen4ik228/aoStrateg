@@ -16,7 +16,7 @@ const MenuBar = ({ toggleDrawer, drawerOpen }) => {
   const { accountId } = useParams(); // Извлекаем accountId из URL
 
   const handleItemClick = (path) => {
-    window.location.href = `/#${accountId}/${path}`;
+    window.location.href = `/#/${accountId}/${path}`;
   };
 
   const list = () => (

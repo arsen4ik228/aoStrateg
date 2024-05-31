@@ -7,26 +7,22 @@ import { getWorkModal } from '../../../BLL/workSlice';
 
 const Heading = () => {
 const dispatch = useDispatch();    
-const {accountId,number} = useParams();
+const {accountId,number,organizationName} = useParams();
 
 
 
-const listModalTitles = useSelector(
-  (state) => state.work.workModalTitles
-);
+
 const listModalOrder = useSelector(
   (state) => state.work?.workModalOrder || {}
 );
-const allIds = listModalTitles.map((row) => row.id);
+
+const orderNumber = listModalOrder.orderNumber;
 
 useEffect(() => 
 {    
     dispatch(getWorkModal({ accountId: accountId, orderId: number }));
 
   },[])
-console.log(number)
-console.log(listModalOrder)
-console.log(listModalTitles)
 
 
     return (
@@ -35,11 +31,11 @@ console.log(listModalTitles)
           <Grid container sx={{ height: '120px', borderBottom: '1px solid #B4B4B4' }}>
             {/* Колонка 1 */}
             <Grid container sx={{ height: '60px',justifyContent: 'center',alignItems: 'center'}}>
-              <Box sx={{fontSize: '18px', fontWeight: 'Montserrat', fontWeight: '500',textAlign: 'center', justifyContent: 'center',alignItems: 'center', color:'#3A3A3A' }}>Заказ № {number}</Box>
+              <Box sx={{fontSize: '18px', fontWeight: 'Montserrat', fontWeight: '500',textAlign: 'center', justifyContent: 'center',alignItems: 'center', color:'#3A3A3A' }}>Заказ № {orderNumber}</Box>
             </Grid>
 
             <Grid container item xs={6} sx={{ height: '60px',justifyContent: 'center',alignItems: 'center'}}>
-              <Box sx={{fontSize: '16px', fontWeight: 'Montserrat', fontWeight: '600',textAlign: 'center', justifyContent: 'center',alignItems: 'center', color:'#BA8400', }}>Екатеринбург</Box>
+              <Box sx={{fontSize: '16px', fontWeight: 'Montserrat', fontWeight: '600',textAlign: 'center', justifyContent: 'center',alignItems: 'center', color:'#BA8400', }}>{organizationName}</Box>
             </Grid>
             
             <Grid container item xs={6} sx={{ height: '60px',justifyContent: 'center',alignItems: 'center'}}>

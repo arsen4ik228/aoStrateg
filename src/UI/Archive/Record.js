@@ -22,7 +22,6 @@ const Record = () => {
   // const listModalOrder = useSelector(
   //   (state) => state.work?.workModalOrder || {}
   // );
-
   
   return (
     // МОЖНО ПЕРЕДАВАТЬ ЗНАЧЕНИЯ КАК ЭЛЕМЕНТЫ МАСИВА ИЗ ВЫЗЫВАЮЩЕГО ФАЙЛА
@@ -30,7 +29,7 @@ const Record = () => {
 
       <Box sx={{ flexGrow: 1 }}> {/* Добавляем внутренний отступ для удобства чтения */}
         {list.map((element) => ( 
-          <NavLink to={`${element.id}`}className="no-style-link">
+          <NavLink to={`${element.id}/${element.organizationName}`}className="no-style-link">
         <Grid key={element.id} container sx={{ height: '90px', borderBottom: '1px solid #B4B4B4' }}>
           {/* Колонка 1 */}
           <Grid container item xs={3} sx={{ justifyContent: 'center', alignItems: 'center' }}>

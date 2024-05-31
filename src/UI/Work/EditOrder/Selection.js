@@ -2,14 +2,18 @@ import React, { useState } from 'react';
 import { Box, Typography, Grid } from '@mui/material';
 import DisableSelection from './Selections/DisableSelection'; // Предполагается, что здесь находится ваш компонент DisableSelection
 import ActiveSelection from './Selections/ActiveSelection'; // Предполагается, что здесь находится ваш компонент ActiveSelection
+import { setBuklet} from '../../../BLL/postSlice';
+import { useDispatch } from 'react-redux';
 
 const Selection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-
+  const dispatch = useDispatch();
   const options = ['Доступ', 'Доп.буклет'];
 
   const handleClick = (index) => {
     setActiveIndex(index);
+    const option = options[index];
+    dispatch(setBuklet(option)); 
   };
 
   // Определение компонента для отображения в зависимости от activeIndex

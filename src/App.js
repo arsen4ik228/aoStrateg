@@ -69,9 +69,9 @@ const App = () => {
           <Route path=":accountId/new/main/:number" element={<Add/>}/>
           <Route path=":accountId/new/personal/:number" element={<Add/>}/>
 
-          <Route path=":accountId/work/:number" element={<Order/>} />
+          <Route path=":accountId/work/:number/:organizationName" element={<Order/>} />
 
-          <Route path=":accountId/archive/:number" element={<ArchiveOrder />} />
+          <Route path=":accountId/archive/:number/:organizationName" element={<ArchiveOrder />} />
 
         {/* <Route path=":accountId/archive/*"
           element={

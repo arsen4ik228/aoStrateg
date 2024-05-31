@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, Grid } from '@mui/material';
-
+import { useDispatch } from 'react-redux';
+import {setAccessType} from '../../../../BLL/postSlice'
 const ActiveSelection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isDisabled, setIsDisabled] = useState(true); // Инициализируем как true
 
 
-
+  const dispatch = useDispatch();
   const options = ['Электронный', 'Бумажный'];
 
   const handleClick = (index) => {
     setActiveIndex(index);
+    const option = options[index];
+    dispatch(setAccessType(option));
   };
 
   return (

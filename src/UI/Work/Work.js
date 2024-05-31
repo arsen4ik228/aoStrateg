@@ -22,8 +22,6 @@ const Work = ({ imageKey }) => {
     },[accountId]);
 
     const list = useSelector((state) => state.work?.work || []);
-    const productsModal = useSelector((state) => state.work.products);
-    console.log(productsModal);
 
     return (
 
@@ -34,7 +32,7 @@ const Work = ({ imageKey }) => {
 
         <Box sx={{ flexGrow: 1 }}>
           {list.map((element) => (
-        <NavLink to={`${element.id}`} className="no-style-link">
+        <NavLink to={`${element.id}/${element.organizationName}`} className="no-style-link">
 
           <Grid container sx={{ height: '90px', borderBottom: '1px solid #B4B4B4', color:'black' }}>
             {/* Колонка 1 */}

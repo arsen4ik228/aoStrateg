@@ -9,7 +9,7 @@ const Heading = () => {
     
 
   const dispatch = useDispatch();    
-const {accountId,number} = useParams();
+const {accountId,number,organizationName} = useParams();
 
   useEffect(() => 
     {    
@@ -17,15 +17,12 @@ const {accountId,number} = useParams();
     
       },[])
 
-      const listModalTitles = useSelector(
-        (state) => state.work.workModalTitles
-      );
+    
       const listModalOrder = useSelector(
         (state) => state.work?.workModalOrder || {});
+        
+        const orderNumber = listModalOrder.orderNumber;
 
-        console.log(number)
-        console.log(listModalOrder)
-        console.log(listModalTitles)
 
 
     return (
@@ -34,11 +31,11 @@ const {accountId,number} = useParams();
           <Grid container sx={{ height: '120px', borderBottom: '1px solid #B4B4B4' }}>
             {/* Колонка 1 */}
             <Grid container sx={{ height: '60px',justifyContent: 'center',alignItems: 'center'}}>
-              <Box sx={{fontSize: '18px', fontWeight: 'Montserrat', fontWeight: '500',textAlign: 'center', justifyContent: 'center',alignItems: 'center', color:'#3A3A3A' }}>Заказ № 24</Box>
+              <Box sx={{fontSize: '18px', fontWeight: 'Montserrat', fontWeight: '500',textAlign: 'center', justifyContent: 'center',alignItems: 'center', color:'#3A3A3A' }}>Заказ № {orderNumber}</Box>
             </Grid>
 
             <Grid container item xs={6} sx={{ height: '60px',justifyContent: 'center',alignItems: 'center'}}>
-              <Box sx={{fontSize: '16px', fontWeight: 'Montserrat', fontWeight: '600',textAlign: 'center', justifyContent: 'center',alignItems: 'center', color:'#BA8400',ml:'30px' }}>Не указана Академия</Box>
+              <Box sx={{fontSize: '16px', fontWeight: 'Montserrat', fontWeight: '600',textAlign: 'center', justifyContent: 'center',alignItems: 'center', color:'#BA8400',ml:'30px' }}> {organizationName}</Box>
             </Grid>
             
             <Grid container item xs={6} sx={{ height: '60px',justifyContent: 'center',alignItems: 'center'}}>

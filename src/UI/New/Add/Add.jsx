@@ -10,7 +10,7 @@ export default function Add() {
     <div>
         <Header/>
         <ImageWithDescriptions/>
-        <SelectionBlock options={['1-ое поколение','2-поколение']}/>
+        <SelectionBlock/>
         <Selection/>
         <Input/>
         <AddButton/>
