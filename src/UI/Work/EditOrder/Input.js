@@ -2,13 +2,13 @@ import { Box, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setQuantity } from '../../../BLL/postSlice';
+import { setquantity } from '../../../BLL/postSlice';
 
 
 
 const Input = () => {
 
-  const [quantity, setQuantity] = useState('');
+const [quantity, setQuantity] = useState('');
 const dispatch = useDispatch();
 
 const handleInputChange = (e) => {
@@ -16,7 +16,7 @@ const handleInputChange = (e) => {
 };
 useEffect(() => {
   if (quantity!== '') {
-    dispatch(setQuantity(quantity));
+    dispatch(setquantity(quantity));
   }
 }, [quantity, dispatch]);
 

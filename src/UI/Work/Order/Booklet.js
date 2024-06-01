@@ -19,7 +19,7 @@ const Booklet = () => {
 
         <Box sx={{ flexGrow: 1,  }}> {/* Добавляем внутренний отступ для удобства чтения */}
         {listModalTitles.map((element) => (
-          <NavLink to="EditOrder" className="no-style-link">
+          <NavLink to={`${element.id}`} className="no-style-link">
           <Grid container sx={{ height: '90px', borderBottom: '1px solid #B4B4B4', color:'black'}}>
             {/* Колонка 1 */}
             <Grid container item xs={3} sx={{justifyContent: 'center',alignItems: 'center'}}>

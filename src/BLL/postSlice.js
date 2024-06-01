@@ -5,9 +5,9 @@ const postSlice = createSlice({
     name: 'post',
     initialState: {
       generation: '1-ое поколение', // Добавлено поле для генерации
-      buklet: 'Доступ', // Добавлено поле для булета
+      booklet: 'Доступ', // Добавлено поле для булета
       accessType: 'Электронный',
-      quantity: '',
+      quantity: 0,
     },
     reducers: {
       setGeneration: (state, action) => {
@@ -16,17 +16,17 @@ const postSlice = createSlice({
       },
       setBuklet: (state, action) => {
         // Обновляем только поле buklet
-        state.buklet = action.payload;
+        state.booklet = action.payload;
       },
       setAccessType: (state,action) => {
         state.accessType = action.payload;
       },
-      setQuantity: (state, action) => { // Добавленное действие
+      setquantity: (state, action) => { // Добавленное действие
         state.quantity = action.payload;
       },
     },
   });
 
-export const { setGeneration,setBuklet, setAccessType , setQuantity} = postSlice.actions;
+export const { setGeneration,setBuklet, setAccessType , setquantity} = postSlice.actions;
 
 export default postSlice.reducer;
