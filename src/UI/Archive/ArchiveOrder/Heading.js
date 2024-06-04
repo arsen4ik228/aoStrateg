@@ -31,11 +31,11 @@ useEffect(() =>
           <Grid container sx={{ height: '120px', borderBottom: '1px solid #B4B4B4' }}>
             {/* Колонка 1 */}
             <Grid container sx={{ height: '60px',justifyContent: 'center',alignItems: 'center'}}>
-              <Box sx={{fontSize: '18px', fontWeight: 'Montserrat', fontWeight: '500',textAlign: 'center', justifyContent: 'center',alignItems: 'center', color:'#3A3A3A' }}>Заказ № {orderNumber}</Box>
+              <Box sx={{fontSize: '18px', fontWeight: 'Montserrat', fontWeight: '500',textAlign: 'center', justifyContent: 'center',alignItems: 'center', color: '#B4B4B4',mt:'20px'}}>Заказ № {orderNumber}</Box>
             </Grid>
 
             <Grid container item xs={6} sx={{ height: '60px',justifyContent: 'center',alignItems: 'center'}}>
-              <Box sx={{fontSize: '16px', fontWeight: 'Montserrat', fontWeight: '600',textAlign: 'center', justifyContent: 'center',alignItems: 'center', color:'#BA8400', }}>{organizationName}</Box>
+              <Box sx={{fontSize: '16px', fontWeight: 'Montserrat', fontWeight: '600',textAlign: 'center', justifyContent: 'center',alignItems: 'center', color: '#B4B4B4', }}>{organizationName}</Box>
             </Grid>
             
             <Grid container item xs={6} sx={{ height: '60px',justifyContent: 'center',alignItems: 'center'}}>

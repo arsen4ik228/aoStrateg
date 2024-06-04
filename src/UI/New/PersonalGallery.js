@@ -7,11 +7,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getProducts } from '../../BLL/productSlice';
 import style from './PhotoGallery.module.css'; // Убедитесь, что файл CSS импортирован
-import { NavLink } from 'react-router-dom';
 
+import { useNavigate } from 'react-router-dom';
 
 const PersonalGallery = () => {
   
+  const navigate = useNavigate();
+  const handleNavigation = (link) => { //event
+    // event.stopPropagation(); // Предотвращаем всплытие события
+    navigate(`${link}`); // Переходим на новую страницу
+  };
   const dispatch = useDispatch();
   const { accountId } = useParams();
 
@@ -24,13 +29,11 @@ const PersonalGallery = () => {
   return (
     <div className={style.photoGallery}>
       {booklets.map((booklet) => (
-              <NavLink to={`${booklet.id}`} className="no-style-link">
 
-        <div key={booklet.id} className={style.photoItem}>
+        <div key={booklet.id} className={style.photoItem} onClick={() => handleNavigation(`${booklet.id}`)}>
           <img src={book} alt='picture' className={style.photo} />
           <div className={style.photoTitle}>{booklet.abbreviation}</div>
         </div>
-      </NavLink>
       ))}
     </div>
     

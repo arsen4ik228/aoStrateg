@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { putOrders } from '../../../BLL/workSlice';
+import { setCity } from '../../../BLL/postSlice';
 
 const AddButton = () => {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ const AddButton = () => {
   const handleClick = () => {
     if (post.quantity !== 0) {
       const addBooklet = post.booklet === 'Доп.буклет'; // Преобразование строки в boolean
-
+      
       dispatch(putOrders({
         accountId: accountId,
         productData: {

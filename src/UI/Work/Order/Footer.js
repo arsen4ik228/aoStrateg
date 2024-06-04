@@ -32,7 +32,7 @@ const Footer = () => {
          Итого:
       </Typography>
       <Typography sx={{fontWeight: 'Montserrat', fontWeight: '700',fontSize:'18px',color:'#3A3A3A',lineHeight:'22px'}}>
-        {sumValue} $
+        {sumValue} &#x20BD;
       </Typography>
     </footer>
     </Box>

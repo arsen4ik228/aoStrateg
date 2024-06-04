@@ -1,14 +1,21 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Tabs, Tab } from '@mui/material';
 import { Box } from '@mui/system';
-import PhotoGallery from './StartGallery';
-import {NavLink, useNavigate} from 'react-router-dom'
+import { useNavigate} from 'react-router-dom'
+import { useParams } from 'react-router-dom';
 const TabsComponents = () => {
   const [value, setValue] = React.useState(0);
-  
-  const handleChange = (event, newValue) => {
+  const handleChange = (event,newValue) => { 
     setValue(newValue);
   };
+  const {accountId} = useParams();
+  const navigate = useNavigate(); // Получаем функцию для навигации
+
+  const handleNavigation = (link) => { //event
+    // event.stopPropagation(); // Предотвращаем всплытие события
+    navigate(`/${accountId}/new/${link}`); // Переходим на новую страницу
+  };
+
   return (
     <>
     <Box sx={{width: '100%', bgcolor: 'background.paper', display: 'flex', justifyContent: 'center'  }}>
@@ -20,19 +27,12 @@ const TabsComponents = () => {
         fontFamily: 'Montserrat, sans-serif',
         borderBottom: '1px solid #808080',
       }}>
-        <NavLink to="start" className="no-style-link">
-          <Tab label="Начальные" sx={{ minWidth: 'auto', flexGrow: 1, color: '#3A3A3A', fontSize: '12px', fontWeight: 'Montserrat' }} />
-        </NavLink>
-        <NavLink to="main" className="no-style-link">
-          <Tab label="Основные" sx={{ minWidth: 'auto', flexGrow: 1, color: '#3A3A3A', fontSize: '12px', fontWeight: 'Montserrat' }} />
-        </NavLink>
-        <NavLink to="personal" className="no-style-link">
-          <Tab label="Для персонала" sx={{ minWidth: 'auto', flexGrow: 1, color: '#3A3A3A', fontSize: '12px', fontWeight: 'Montserrat'}}  />
-        </NavLink>
-        <Tab label="Депозит" sx={{ minWidth: 'auto', flexGrow: 1, color: '#3A3A3A', fontSize: '12px', fontWeight: 'Montserrat' }} />
+          <Tab label="Начальные" onClick={() => handleNavigation('start')} sx={{ minWidth: 'auto', flexGrow: 1, color: '#3A3A3A', fontSize: '12px', fontWeight: 'Montserrat' }} />
+          <Tab label="Основные" onClick={() => handleNavigation('main')} sx={{ minWidth: 'auto', flexGrow: 1, color: '#3A3A3A', fontSize: '12px', fontWeight: 'Montserrat' }} />
+          <Tab label="Для персонала" onClick={() => handleNavigation('personal')} sx={{ minWidth: 'auto', flexGrow: 1, color: '#3A3A3A', fontSize: '12px', fontWeight: 'Montserrat'}}  />
+          <Tab label="Депозит" sx={{ minWidth: 'auto', flexGrow: 1, color: '#3A3A3A', fontSize: '12px', fontWeight: 'Montserrat' }} />
       </Tabs>
     </Box>
-
     </>  
 
 );

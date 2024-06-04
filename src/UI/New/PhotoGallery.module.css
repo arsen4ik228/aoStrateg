@@ -1,14 +1,14 @@
 .photoGallery {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     align-content: center;
      padding: 10px; 
-
+    gap: 11px
   }
   
   .photoItem {
-    flex: 1 0 26%; /* Занимает 30% ширины контейнера, но не меньше 300px */ 
+    flex: 0 0 26%; /* Занимает 30% ширины контейнера, но не меньше 300px */ 
     margin-bottom: 20px;
     margin-right: 10px;  
     margin-left: 10px;
@@ -21,14 +21,13 @@
   
   .photo {
     width: 100%;
-    height: auto;
-    
+    height: auto; 
   }
   
   .photoTitle {
     text-align: center;
     font-size: 18px;
-    margin-top: 10px;
+    margin-top: 5px;
     color: #FF0000;
   }
   

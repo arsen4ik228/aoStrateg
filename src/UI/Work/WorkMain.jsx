@@ -5,7 +5,7 @@ export default function WorkMain() {
   return (
     <div>
       <Header/>
-      <Work imageKey={'0'}/>
+      <Work />
     </div>
   )
 }

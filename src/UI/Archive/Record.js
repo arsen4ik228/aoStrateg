@@ -41,7 +41,7 @@ const Record = () => {
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center' }}>
               <Box sx={{ fontSize: '16px', fontWeight: 'Montserrat', fontWeight: '600', color: '#B4B4B4' }}>{element.organizationName}</Box>
               <Box sx={{ fontSize: '14px', fontWeight: 'Montserrat', fontWeight: '400', color: '#B4B4B4' }} >{element.SUM}</Box>
-              <Box sx={{ fontSize: '14px', fontWeight: 'Montserrat', fontWeight: '400', fontStyle: 'italic', color: '#B4B4B4' }}>{element.dispatchDate}</Box>
+              <Box sx={{ fontSize: '14px', fontWeight: 'Montserrat', fontWeight: '400', fontStyle: 'italic', color: '#B4B4B4' }}>{element.formattedDispatchDate}</Box>
             </Box>
           </Grid>
 
