@@ -4,10 +4,13 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { putOrders } from '../../../BLL/workSlice';
-import { setCity } from '../../../BLL/postSlice';
+import { useNavigate } from 'react-router-dom';
 
-const AddButton = () => {
+const AddButton = ({ quantity }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const goBack = () => navigate(-1);
+
   const { accountId, number } = useParams(); // Используйте 'number' вместо 'productId'
 
   const post = useSelector((state) => state.post);
@@ -26,6 +29,7 @@ const AddButton = () => {
           quantity: post.quantity,
         },
       }));
+      goBack();
     }
   };
 
@@ -41,6 +45,7 @@ const AddButton = () => {
     >
       <Button
         variant="contained"
+        disabled={!quantity}
         sx={{
           mt: 4,
           width: '210px',

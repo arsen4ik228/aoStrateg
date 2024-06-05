@@ -3,11 +3,14 @@ import { AppBar, Toolbar, Typography, IconButton, SwipeableDrawer } from '@mui/m
 import MenuIcon from '@mui/icons-material/MoreVert';
 import MenuBar from '../../Menu/MenuBar';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'; // Импорт иконки стрелки назад
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 const Header = () => {
   const [drawerOpen, setDrawerOpen] = useState(false); // Определение состояния drawerOpen и setDrawerOpen
+
+  const navigate = useNavigate();
+  const goBack = () => navigate(-1);
 
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
@@ -17,20 +20,20 @@ const Header = () => {
     <div>
       <AppBar position="static" sx={{ backgroundColor: 'white' }}>
         <Toolbar>
-        <NavLink to="/work" className="no-style-link">
-        <IconButton edge="start" aria-label="back" sx={{ color: '#005475' }}> {/* Изменение edge на start для размещения кнопки слева */}
-            {/* <ArrowBackIosIcon /> */}
+        
+        <IconButton edge="start" aria-label="back" sx={{ color: '#005475' }} onClick={() => goBack()}> {/* Изменение edge на start для размещения кнопки слева */}
+            <ArrowBackIosIcon />
           </IconButton>
-          </NavLink>
+          
           <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: '#005475', fontSize: '18px', fontWeight: 'Montserrat', fontWeight: '500'  }}>
-  
+            Выберите академию
           </Typography>
           <IconButton edge="end" aria-label="menu" sx={{ color: '#005475' }} onClick={toggleDrawer}>
-            {/* <MenuIcon /> */}
+            <MenuIcon />
           </IconButton>
         </Toolbar>
       </AppBar>
-      {/* <MenuBar toggleDrawer={toggleDrawer} drawerOpen={drawerOpen} /> Передаем toggleDrawer и drawerOpen в MenuBar */}
+       <MenuBar toggleDrawer={toggleDrawer} drawerOpen={drawerOpen} />   {/*Передаем toggleDrawer и drawerOpen в MenuBar */}
     </div>
   );
 };

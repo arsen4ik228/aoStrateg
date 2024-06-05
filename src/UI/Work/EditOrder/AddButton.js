@@ -2,11 +2,14 @@ import React, { useEffect } from 'react';
 import { Button, Box, Grid } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 import { getWorkModal, putOrders } from '../../../BLL/workSlice';
 import { updateTitleOrder } from '../../../BLL/workSlice';
-const AddButton = () => {
+const AddButton = ({quantity}) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const goBack = () => navigate(-1);
+
   const { accountId, number,bookletId } = useParams(); // Используйте 'number' вместо 'productId'
 
   const post = useSelector((state) => state.post);
@@ -43,6 +46,7 @@ useEffect(() => {
           titlesToUpdate: titlesToUpdate,
         },
       ));
+      goBack();
     }
   };
 
@@ -58,6 +62,7 @@ useEffect(() => {
     >
       <Button
         variant="contained"
+        disabled={!quantity}
         sx={{
           mt: 4,
           width: '210px',
@@ -73,7 +78,7 @@ useEffect(() => {
         }}
         onClick={handleClick}
       >
-        Добавить в заказ
+         Редактировать
       </Button>
     </Box>
   );

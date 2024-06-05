@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Box, Typography, Grid } from '@mui/material';
 import DisableSelection from './Selections/DisableSelection'; // Предполагается, что здесь находится ваш компонент DisableSelection
 import ActiveSelection from './Selections/ActiveSelection'; // Предполагается, что здесь находится ваш компонент ActiveSelection
-import { setBuklet} from '../../../BLL/postSlice';
+import { setBuklet,setAccessType} from '../../../BLL/postSlice';
 import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 
 const Selection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -15,6 +16,11 @@ const Selection = () => {
     const option = options[index];
     dispatch(setBuklet(option)); 
   };
+
+  useEffect(() => {
+    dispatch(setBuklet('Доступ'));
+    dispatch(setAccessType('Электронный'));
+  }, []);
 
   // Определение компонента для отображения в зависимости от activeIndex
   const ComponentToRender = () => {

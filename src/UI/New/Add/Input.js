@@ -6,13 +6,17 @@ import { setquantity } from '../../../BLL/postSlice';
 
 
 
-const Input = () => {
+const Input = ({onQuantityChange}) => {
 
+
+  
 const [quantity, setQuantity] = useState('');
 const dispatch = useDispatch();
 
 const handleInputChange = (e) => {
-  setQuantity(e.target.value);
+  const newQuantity = e.target.value;
+    setQuantity(newQuantity);
+  onQuantityChange(newQuantity);
 };
 useEffect(() => {
   if (quantity!== '') {

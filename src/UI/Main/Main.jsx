@@ -2,6 +2,7 @@ import React,{useState, useEffect} from 'react'
 import style from './Main.module.css'
 import logo from './src/logo.svg'
 import telegram from './src/telegram.svg'
+import { Link } from 'react-router-dom'
 import axios from "axios";
 export default function Main() {
  
@@ -78,7 +79,8 @@ export default function Main() {
 
       <div className={style.textContainer}>
         <img src={telegram} alt="Telegram" />
-        <a href={qrUrl} target="_blank" rel="noopener noreferrer" className={style.link}>Войти через Telegram</a>
+        {/* <a href={qrUrl} target="_blank" rel="noopener noreferrer" className={style.link}>Войти через Telegram</a> */}
+       <Link to="6ac81119-f508-48ec-9d4a-6fb3328731c6"> <div>ВОЙТИ</div> </Link>
       </div>
     </div>
   )

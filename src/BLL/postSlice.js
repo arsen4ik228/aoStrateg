@@ -4,7 +4,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const postSlice = createSlice({
     name: 'post',
     initialState: {
-      generation: '1-ое поколение', // Добавлено поле для генерации
+      generation: '', // Добавлено поле для генерации
       booklet: 'Доступ', // Добавлено поле для булета
       accessType: 'Электронный',
       quantity: 0,

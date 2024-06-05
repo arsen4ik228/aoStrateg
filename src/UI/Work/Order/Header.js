@@ -3,10 +3,15 @@ import { AppBar, Toolbar, Typography, IconButton, SwipeableDrawer } from '@mui/m
 import MenuIcon from '@mui/icons-material/MoreVert';
 import MenuBar from '../../Menu/MenuBar';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'; // Импорт иконки стрелки назад
-import { NavLink } from 'react-router-dom';
+import AddIcon from '@mui/icons-material/Add';
+import { useNavigate,useParams } from 'react-router-dom';
 
 const Header = () => {
   const [drawerOpen, setDrawerOpen] = useState(false); // Определение состояния drawerOpen и setDrawerOpen
+  const {accountId} = useParams();
+  const navigate = useNavigate();
+  const goNew = () => navigate(`/${accountId}/new`);
+  const goBack = () => navigate(-1);
 
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
@@ -16,14 +21,15 @@ const Header = () => {
     <div>
       <AppBar position="static" sx={{ backgroundColor: 'white' }}>
         <Toolbar>
-        <NavLink to="/work" className="no-style-link">
-        <IconButton edge="start" aria-label="back" sx={{ color: '#005475' }}> {/* Изменение edge на start для размещения кнопки слева */}
+        <IconButton edge="start" aria-label="back" sx={{ color: '#005475' }} onClick={() => goBack()}> {/* Изменение edge на start для размещения кнопки слева */}
             <ArrowBackIosIcon />
           </IconButton>
-          </NavLink>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: '#005475', fontSize: '18px', fontWeight: 'Montserrat', fontWeight: '500'  }}>
             В работе
           </Typography>
+          <IconButton edge="end" aria-label="menu" sx={{ color: '#005475', mr:'1px', fontSize: 'large' }} onClick={goNew}>
+              <AddIcon />
+          </IconButton>
           <IconButton edge="end" aria-label="menu" sx={{ color: '#005475' }} onClick={toggleDrawer}>
             <MenuIcon />
           </IconButton>

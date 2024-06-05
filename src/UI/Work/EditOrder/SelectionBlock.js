@@ -1,17 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Typography, Grid } from '@mui/material';
 import { setGeneration } from '../../../BLL/postSlice';
 import { useDispatch } from 'react-redux';
 
+
 const SelectionBlock = () => {
   const dispatch = useDispatch();
   const [activeIndex, setActiveIndex] = useState(0);
-  const options = ['1-ое поколение','2-поколение'];
+  const options = ['1-ое поколение','2-ое поколение'];
+  const generationMap = {
+    '1-ое поколение': 'Первое поколение',
+    '2-ое поколение': 'Второе поколение',
+  };
+
+  useEffect(() => {
+    dispatch(setGeneration('Первое поколение'));
+  }, []);
 
   const handleClick = (index) => {
     setActiveIndex(index);
     const option = options[index];
-    dispatch(setGeneration(option)); // Установите выбранное поколение
+    const translatedOption = generationMap[option];
+    dispatch(setGeneration(translatedOption)); // Установите выбранное поколение
   };
  
   return (

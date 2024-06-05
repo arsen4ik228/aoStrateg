@@ -11,10 +11,10 @@ const Heading = () => {
   const dispatch = useDispatch();
   const { accountId, number, status } = useParams();
 
-  useEffect(() => {
-    dispatch(getWorkModal({ accountId: accountId, orderId: number }));
+  // useEffect(() => {
+  //   dispatch(getWorkModal({ accountId: accountId, orderId: number }));
 
-  }, [])
+  // }, [])
 
   const list = useSelector((state) => state.work?.work || []);
   const foundElement = list.find(element => element.id === number);
