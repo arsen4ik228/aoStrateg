@@ -2,7 +2,6 @@ import React,{useState, useEffect} from 'react'
 import style from './Main.module.css'
 import logo from './src/logo.svg'
 import telegram from './src/telegram.svg'
-import { Link } from 'react-router-dom'
 import axios from "axios";
 export default function Main() {
  
@@ -10,11 +9,11 @@ export default function Main() {
   const [ws, setWs] = useState(null); // Добавляем состояние для WebSocket соединения
 
   useEffect(() => {
-    // Функция для выполнения GET запроса
+    // Функция для выполнения GET запрос
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/api/homepage"
+          "https://24academy.ru/api/homepage"
         );
         // Обновляем состояние с полученными данными
         setData(response.data);
@@ -30,7 +29,7 @@ export default function Main() {
   useEffect(() => {
     // Устанавливаем WebSocket соединение после получения данных
     if (data.sessionId) {
-      const wsUrl = `ws://localhost:3002?sessionId=${data.sessionId}`;
+      const wsUrl = `wss://24academy.ru/ws?sessionId=${data.sessionId}`;
       const wsConnection = new WebSocket(wsUrl);
 
       setWs(wsConnection); // Сохраняем WebSocket соединение в состоянии
@@ -79,8 +78,11 @@ export default function Main() {
 
       <div className={style.textContainer}>
         <img src={telegram} alt="Telegram" />
-        {/* <a href={qrUrl} target="_blank" rel="noopener noreferrer" className={style.link}>Войти через Telegram</a> */}
-       <Link to="6ac81119-f508-48ec-9d4a-6fb3328731c6"> <div>ВОЙТИ</div> </Link>
+        <a href={qrUrl} target="_blank" rel="noopener noreferrer" className={style.link}>Войти через Telegram</a>
+       {/* <Link to="6ac81119-f508-48ec-9d4a-6fb3328731c6"> <div>ВОЙТИ</div> </Link> */}
+       <div> token:{data.token}</div>
+       <div> ID:{data.sessionId}</div>
+
       </div>
     </div>
   )

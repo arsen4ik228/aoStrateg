@@ -7,7 +7,8 @@ export const getProducts = createAsyncThunk(
  async ({accountId, typeId}, { rejectWithValue }) => {
     try {
       const response = await instance.get(
-        `${accountId}/productsByType/${typeId}`
+        `${accountId}/productsByType/${typeId}`,
+        { withCredentials: true }
       );
       console.log(response.data.productsList);
       // Убедитесь, что typeId передается в полезную нагрузку
