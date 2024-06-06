@@ -1,7 +1,6 @@
 {
   "name": "nae",
   "version": "0.1.0",
-  "proxy": "https://24academy.ru/",
   "private": true,
   "homepage": "./",
   "dependencies": {
