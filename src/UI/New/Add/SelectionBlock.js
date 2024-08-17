@@ -15,7 +15,7 @@ const SelectionBlock = () => {
 
   useEffect(() => {
     dispatch(setGeneration('Первое поколение'));
-  }, []);
+  }, [dispatch]);
 
   const handleClick = (index) => {
     setActiveIndex(index);
@@ -41,7 +41,7 @@ const SelectionBlock = () => {
                 backgroundColor: activeIndex === index? "#005475" : 'transparent',
               },
               fontWeight: "500",
-              fontWeight: 'Montserrat',
+              fontFamily: "'Montserrat', sans-serif",
               fontSize: '18px',
             }}>
               {option}

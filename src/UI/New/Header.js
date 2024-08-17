@@ -1,47 +1,79 @@
 // Header.js
 import React, { useState } from 'react';
-import { AppBar, Toolbar, Typography, IconButton, Badge } from '@mui/material';
+import { AppBar, Toolbar, Typography, IconButton, Badge,Box } from '@mui/material';
 import MenuIcon from '@mui/icons-material/MoreVert';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import MenuBar from '../Menu/MenuBar';
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-const Header = () => {
-  const [drawerOpen, setDrawerOpen] = useState(false); // Определение состояния drawerOpen и setDrawerOpen
+import { useDispatch } from 'react-redux';
+import { getWork } from '../../BLL/workSlice';
+
+const Header = ({ onNotificationClick }) => {
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const {accountId} = useParams();
-  const list = useSelector((state) => state.work.work);
+  
   const navigate = useNavigate();
   const goWork = () => navigate(`/${accountId}/work`);
+  const dispatch = useDispatch();
+  
+
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
   };
+
+  const handleNotificationClick = () => {
+    console.log('Уведомления нажаты');
+    onNotificationClick();
+  };
+
+  useEffect(() => {
+    dispatch(getWork(accountId));
+  }, [accountId, dispatch]);
+  const productsInDraft = useSelector((state) => String(state.work?.productsInDraft || ""));
+  const productInDraftIdsToArray = productsInDraft ? productsInDraft.split(",") : [];
+  
+    let badgeContent = (
+      <Box 
+        sx={{
+          backgroundColor: '#005475',
+          color: 'white',
+          padding: '8px',
+          borderRadius: '50%',
+          fontSize: '14px',
+          minWidth: '13px', // Минимальная ширина и высота для создания круга
+          minHeight: '13px',
+          display: 'inline-flex', // Это поможет центрировать текст внутри круга
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        {productInDraftIdsToArray.length}
+      </Box>
+    );
+    
+  //}
 
   return (
     <div>
       <AppBar position="static" sx={{ backgroundColor: 'white' }}>
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: '#005475', fontSize: '18px', fontWeight: 'Montserrat', fontWeight: '500' }}>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: '#005475', fontSize: '18px', fontFamily: "'Montserrat', sans-serif", fontWeight: '500' }}>
             Новый
           </Typography>
-          <IconButton onClick={() => goWork()}>
-          <Badge badgeContent={list.length ? list.length : "0" } sx={{
-              "& .MuiBadge-badge": {
-                backgroundColor:"#005475", // Установка фона в синий или #005475 в зависимости от условия
-                color:"white",// Установка цвета текста в белый
-                border: "2px solid white",// Установка белого контура
-                width: '26px', // Изменение ширины
-                height: '26px', // Изменение высоты
-                borderRadius: '50%', // Сделать круглым
-                fontSize: '15px',
-              },
-            }}></Badge>
-
+          <IconButton sx={{mr: '7px'}} onClick={handleNotificationClick}>
+            <NotificationsIcon />
+          </IconButton>
+          <IconButton sx={{mr: '7px'}} onClick={() => goWork()}>
+            <Badge badgeContent={badgeContent}  ></Badge>
           </IconButton>
           <IconButton edge="end" aria-label="menu" sx={{ color: '#005475' }} onClick={toggleDrawer}>
             <MenuIcon />
           </IconButton>
         </Toolbar>
       </AppBar>
-      <MenuBar toggleDrawer={toggleDrawer} drawerOpen={drawerOpen} /> {/* Передаем toggleDrawer и drawerOpen в MenuBar */}
+      <MenuBar toggleDrawer={toggleDrawer} drawerOpen={drawerOpen} />
     </div>
   );
 };

@@ -43,7 +43,7 @@ const SelectionBlock = () => {
                 backgroundColor: activeIndex === index ? "#005475" : 'transparent', // Видимость линии зависит от состояния
               },
               fontWeight: "500",
-              fontWeight: 'Montserrat',
+              fontFamily: "'Montserrat', sans-serif" ,
               fontSize: '18px',
             }}>
               {option}

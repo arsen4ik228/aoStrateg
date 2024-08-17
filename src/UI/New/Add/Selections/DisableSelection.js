@@ -3,7 +3,8 @@ import { Box, Typography, Grid } from '@mui/material';
 
 const DisableSelection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isDisabled, setIsDisabled] = useState(true); // Инициализируем как true
+  // eslint-disable-next-line 
+  const [isDisabled, setIsDisabled] = useState(true); 
 
   const options = ['Электронный', 'Бумажный'];
 
@@ -32,7 +33,7 @@ const DisableSelection = () => {
                   
                 },
                 fontWeight: "500",
-                fontWeight: 'Montserrat',
+                fontFamily: "'Montserrat', sans-serif",
                 fontSize: '18px',
               }}
             >

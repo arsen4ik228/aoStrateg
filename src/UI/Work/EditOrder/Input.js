@@ -1,5 +1,4 @@
 import { Box, TextField, Typography } from '@mui/material';
-import { styled } from '@mui/system';
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setquantity } from '../../../BLL/postSlice';
@@ -8,7 +7,7 @@ import { setquantity } from '../../../BLL/postSlice';
 
 const Input = ({onQuantityChange}) => {
 
-const [quantity, setQuantity] = useState('');
+const [quantity, setQuantity] = useState('1');
 const dispatch = useDispatch();
 
 const handleInputChange = (e) => {
@@ -43,7 +42,7 @@ useEffect(() => {
               },
       }}
     >
-      <Typography variant="body1" sx={{ mr: 12, pt:"41px",pb:"11px", color: '#3A3A3A', fontWeight: '500', fontWeight: 'Montserrat', fontSize: '18px', lineHeight: '22px', }}>Количество:</Typography>
+      <Typography variant="body1" sx={{ mr: 12, pt:"41px",pb:"11px", color: '#3A3A3A', fontWeight: '500', fontFamily: "'Montserrat', sans-serif" , fontSize: '18px', lineHeight: '22px', }}>Количество:</Typography>
       < TextField type="number" variant="standard" value={quantity} onChange={handleInputChange}
       sx={{
         pt:"47px", 

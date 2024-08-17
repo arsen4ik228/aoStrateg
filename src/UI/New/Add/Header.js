@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { AppBar, Toolbar, Typography, IconButton, Badge} from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { AppBar, Toolbar, Typography, IconButton, } from '@mui/material';
 import MenuIcon from '@mui/icons-material/MoreVert';
 import MenuBar from '../../Menu/MenuBar';
+import {useParams} from 'react-router-dom'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'; // Импорт иконки стрелки назад
 import { useNavigate } from 'react-router-dom';
 const Header = () => {
@@ -10,6 +11,13 @@ const Header = () => {
   const navigate = useNavigate();
   const goBack = () => navigate(-1);
 
+  const { accountId } = useParams();
+
+  useEffect(() => {
+    // Сохраняем accountId в localStorage
+    localStorage.setItem('accountId', accountId);
+    // Другие действия, которые нужно выполнить при монтировании компонента
+  }, [accountId]);
 
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
@@ -24,7 +32,7 @@ const Header = () => {
             <ArrowBackIosIcon />
           </IconButton>
           
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: '#005475', fontSize: '18px', fontWeight: 'Montserrat', fontWeight: '500'  }}>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: '#005475', fontSize: '18px', fontFamily: "'Montserrat', sans-serif", fontWeight: '500'  }}>
             Добавить товар
           </Typography>
           

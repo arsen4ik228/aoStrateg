@@ -5,7 +5,7 @@ import MenuIcon from '@mui/icons-material/MoreVert';
 import MenuBar from '../Menu/MenuBar';
 import AddIcon from '@mui/icons-material/Add';
 import { useNavigate,useParams } from 'react-router-dom';
-
+import '@fontsource/montserrat'
 const Header = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const {accountId} = useParams();
@@ -18,9 +18,9 @@ const Header = () => {
 
   return (
     <div>
-      <AppBar position="static" sx={{ backgroundColor: 'white' }}>
+      <AppBar position="static" sx={{ backgroundColor: 'white'}}>
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: '#005475', fontSize: '18px', fontWeight: 'Montserrat', fontWeight: '500' }}>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: '#005475', fontSize: '18px', fontWeight: '500',fontFamily: "'Montserrat', sans-serif" }}>
             В работе
           </Typography>
           <IconButton edge="end" aria-label="menu" sx={{ color: '#005475', mr:'1px', fontSize: 'large' }} onClick={goNew}>

@@ -25,7 +25,7 @@ const Header = () => {
             <ArrowBackIosIcon />
           </IconButton>
           
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: '#005475', fontSize: '18px', fontWeight: 'Montserrat', fontWeight: '500'  }}>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: '#005475', fontSize: '18px', fontFamily: "'Montserrat', sans-serif" , fontWeight: '500'  }}>
             Выберите академию
           </Typography>
           <IconButton edge="end" aria-label="menu" sx={{ color: '#005475' }} onClick={toggleDrawer}>

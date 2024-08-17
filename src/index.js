@@ -7,6 +7,20 @@ import { HashRouter } from 'react-router-dom';
 import { Provider } from "react-redux";
 import store from './BLL/index.js'
 
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/PWA/sw.js').then(function(registration) {
+            // navigator.serviceWorker.register('/sw.js').then(function(registration) {
+
+            console.log('Service Worker registered with scope: ', registration.scope);
+        }, function(err) {
+            console.log('Service Worker registration failed: ', err);
+        });
+    });
+}
+
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   

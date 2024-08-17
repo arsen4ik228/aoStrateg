@@ -27,10 +27,10 @@ const TabsComponents = () => {
         fontFamily: 'Montserrat, sans-serif',
         borderBottom: '1px solid #808080',
       }}>
-          <Tab label="Начальные" onClick={() => handleNavigation('start')} sx={{ minWidth: 'auto', flexGrow: 1, color: '#3A3A3A', fontSize: '12px', fontWeight: 'Montserrat' }} />
-          <Tab label="Основные" onClick={() => handleNavigation('main')} sx={{ minWidth: 'auto', flexGrow: 1, color: '#3A3A3A', fontSize: '12px', fontWeight: 'Montserrat' }} />
-          <Tab label="Для персонала" onClick={() => handleNavigation('personal')} sx={{ minWidth: 'auto', flexGrow: 1, color: '#3A3A3A', fontSize: '12px', fontWeight: 'Montserrat'}}  />
-          <Tab label="Депозит" sx={{ minWidth: 'auto', flexGrow: 1, color: '#3A3A3A', fontSize: '12px', fontWeight: 'Montserrat' }} />
+          <Tab label="Начальные" onClick={() => handleNavigation('start')} sx={{ minWidth: 'auto', flexGrow: 1, color: '#3A3A3A', fontSize: '12px', fontFamily: "'Montserrat', sans-serif"}} />
+          <Tab label="Основные" onClick={() => handleNavigation('main')} sx={{ minWidth: 'auto', flexGrow: 1, color: '#3A3A3A', fontSize: '12px', fontFamily: "'Montserrat', sans-serif" }} />
+          <Tab label="Для персонала" onClick={() => handleNavigation('personal')} sx={{ minWidth: 'auto', flexGrow: 1, color: '#3A3A3A', fontSize: '12px', fontFamily: "'Montserrat', sans-serif"}}  />
+          {/* <Tab label="Депозит" sx={{ minWidth: 'auto', flexGrow: 1, color: '#3A3A3A', fontSize: '12px', fontFamily: "'Montserrat', sans-serif" }} /> */}
       </Tabs>
     </Box>
     </>  

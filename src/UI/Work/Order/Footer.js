@@ -28,10 +28,10 @@ const Footer = () => {
       boxSizing: 'border-box', // Учитывать внутренние отступы в ширину
       boxShadow: '0 -2px 6px rgba(0, 0, 0, 0.25)', // Эффект тени
     }}>
-      <Typography sx={{fontWeight: 'Montserrat', fontWeight: '700',fontSize:'18px',color:'#3A3A3A',lineHeight:'22px'}}>
+      <Typography sx={{fontFamily: "'Montserrat', sans-serif" , fontWeight: '700',fontSize:'18px',color:'#3A3A3A',lineHeight:'22px'}}>
          Итого:
       </Typography>
-      <Typography sx={{fontWeight: 'Montserrat', fontWeight: '700',fontSize:'18px',color:'#3A3A3A',lineHeight:'22px'}}>
+      <Typography sx={{fontFamily: "'Montserrat', sans-serif" , fontWeight: '700',fontSize:'18px',color:'#3A3A3A',lineHeight:'22px'}}>
         {sumValue} &#x20BD;
       </Typography>
     </footer>

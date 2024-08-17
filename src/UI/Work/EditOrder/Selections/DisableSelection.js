@@ -32,7 +32,7 @@ const DisableSelection = () => {
                   
                 },
                 fontWeight: "500",
-                fontWeight: 'Montserrat',
+                fontFamily: "'Montserrat', sans-serif" ,
                 fontSize: '18px',
               }}
             >

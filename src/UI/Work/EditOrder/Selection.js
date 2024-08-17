@@ -51,7 +51,7 @@ const Selection = () => {
                   backgroundColor: activeIndex === index? "#005475" : 'transparent',
                 },
                 fontWeight: "500",
-                fontWeight: 'Montserrat',
+                fontFamily: "'Montserrat', sans-serif" ,
                 fontSize: '18px',
               }}>
                 {option}

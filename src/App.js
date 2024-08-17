@@ -12,6 +12,11 @@ import Select from './UI/Work/Select/Select.jsx';
 import StartGallery from './UI/New/StartGallery.js'
 import MainGallery from './UI/New/MainGallery.js'
 import PersonalGallery from './UI/New/PersonalGallery.js'
+import UsersMain from './UI/admin/users/UsersMain.jsx';
+import EditUserMain from './UI/admin/users/EditUser/EditUserMain.jsx';
+import MainExtendedDeposit from './UI/admin/deposit/depositExtended/MainExtendedDeposit.jsx';
+import AddUserMain from './UI/admin/users/AddUser/AddUserMain.jsx';
+import MainDeposit from './UI/admin/deposit/MainDeposit.jsx';
 import { Route, Routes, Navigate } from 'react-router-dom'; // Импортируем NavLink вместо Link
 import { useParams } from 'react-router-dom';
 
@@ -20,8 +25,23 @@ const App = () => {
   return (
     <div className="App">
 
-
+       {/* -----------------ADMIN---------------------------  */}
       <Routes>
+        <Route path=":accountId/admin" element={<Navigate replace to="users" />}></Route>
+        <Route path=":accountId/admin/*"
+        element={
+            <Routes>
+              <Route path="users" element={<UsersMain></UsersMain>}></Route>
+
+              <Route path="deposit" element={<MainDeposit></MainDeposit>}></Route>
+            </Routes>
+        }></Route>
+
+         <Route path=":accountId/admin/users/addUser" element={<AddUserMain></AddUserMain>}></Route> 
+         <Route path=":accountId/admin/users/:accountFocusId" element={<EditUserMain></EditUserMain>} ></Route>
+         <Route path=":accountId/admin/deposit/:organizationCustomerId" element={<MainExtendedDeposit></MainExtendedDeposit>}></Route> 
+
+      {/* -----------------USER---------------------------  */}
         <Route path="/*" element={<Main />}></Route>
         <Route path=":accountId" element={<Navigate replace to="new" />}></Route>
         <Route path=":accountId/*"
@@ -57,10 +77,6 @@ const App = () => {
                     path="personal"
                     element={<PersonalGallery></PersonalGallery>}
                   ></Route>
-                  {/* <Route
-                        path="deposit"
-                        element={}
-                      ></Route> */}
                 </Routes>
               </New>
             </>
@@ -74,24 +90,6 @@ const App = () => {
           <Route path= ":accountId/work/:number/:status/:bookletId" element={<EditOrder/>}></Route>
 
           <Route path=":accountId/archive/:number/:organizationName" element={<ArchiveOrder />} />
-         
-        {/* <Route path=":accountId/archive/*"
-          element={
-            <Routes>
-              <Route path="ArchiveOrder" element={<ArchiveOrder />} ></Route>
-            </Routes>
-          }></Route> */}
-
-        {/* ПЕРЕАДРЕСАЦИ ДЛЯ РАБОТЫ МЕНЮ     */}
-        {/* <Route path=":accountId/new/archive" element={window.location.href = `#/${accountId}/archive`}></Route> */}
-        {/*
-            <Route path=":accountId/archive" element={<ArchiceMain />} />
-            <Route path=":accountId/archive/archiveOrder" element={<ArchiveOrder />} />
-
-            <Route path="work/order" element={<Order />} />
-            <Route path='work/order/EditOrder' element={<EditOrder />} />
-            <Route path="work/*" element={<WorkMain />} /> */}
-        {/* <Route path=':accountId/new/add' element={<Add/>} /> */}
 
       </Routes>
 

@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { Button, Box, Grid } from '@mui/material';
+import { Button, Box} from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useParams,useNavigate } from 'react-router-dom';
-import { getWorkModal, putOrders } from '../../../BLL/workSlice';
+import { getWorkModal } from '../../../BLL/workSlice';
 import { updateTitleOrder } from '../../../BLL/workSlice';
 const AddButton = ({quantity}) => {
   const dispatch = useDispatch();
@@ -16,9 +16,11 @@ const AddButton = ({quantity}) => {
 
   const titlesToUpdate = [];
 
-useEffect(() => {
-  dispatch(getWorkModal({accountId: accountId, orderId: number}));
-}, accountId)
+  useEffect(() => {
+    if (accountId) { // Проверяем, что accountId определен
+      dispatch(getWorkModal({accountId: accountId, orderId: number}));
+    }
+  }, [accountId,dispatch,number]);
 
   const listModalOrder = useSelector(
     (state) => state.work?.workModalOrder || {}
@@ -62,13 +64,13 @@ useEffect(() => {
     >
       <Button
         variant="contained"
-        disabled={!quantity}
+        disabled={(!quantity) || (parseInt(quantity) <= 0)}
         sx={{
           mt: 4,
           width: '210px',
           height: '48px',
           fontSize: '18px',
-          fontWeight: 'Montserrat',
+          fontFamily: "'Montserrat', sans-serif" ,
           fontWeight: '700',
           backgroundColor: '#005475',
           textTransform: 'none',

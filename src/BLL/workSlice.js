@@ -14,7 +14,7 @@ export const getWork = createAsyncThunk(
       );
 
       console.log(response.data);
-      return {orders_list: response.data.orders_list, organizationList: response.data.organizationList};
+      return {orders_list: response.data.orders_list, organizationList: response.data.organizationList, productsInDraft: response.data.productsInDraft[0].productIds};
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -120,6 +120,7 @@ const workSlice = createSlice({
   initialState: {
     drafts: [],
     work: [],
+    productsInDraft: [],
     organizationList:[],
     workModalOrder:[],
     workModalTitles:[],
@@ -153,6 +154,7 @@ const workSlice = createSlice({
         state.status = 'resolved';
         state.work = action.payload.orders_list;
         state.organizationList = action.payload.organizationList;
+        state.productsInDraft = action.payload.productsInDraft;
       })
       .addCase(getWork.rejected, (state, action) => {
         state.status = 'rejected';

@@ -3,8 +3,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import instance from "./api.js";
 
 export const getProducts = createAsyncThunk(
- "orders/getProducts",
- async ({accountId, typeId}, { rejectWithValue }) => {
+  "orders/getProducts",
+  async ({ accountId, typeId }, { rejectWithValue }) => {
     try {
       const response = await instance.get(
         `${accountId}/productsByType/${typeId}`,
@@ -16,19 +16,19 @@ export const getProducts = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.message);
     }
- }
+  }
 );
 
 const productSlice = createSlice({
- name: "orders",
- initialState: {
+  name: "orders",
+  initialState: {
     productsStart: [],
     status: null,
     error: null,
- },
- reducers: {
- },
- extraReducers: (builder) => {
+  },
+  reducers: {
+  },
+  extraReducers: (builder) => {
     builder
       .addCase(getProducts.pending, (state) => {
         state.status = 'loading';
@@ -42,9 +42,11 @@ const productSlice = createSlice({
         state.status = 'rejected';
         state.error = action.payload;
       });
- },
+  },
 });
 
-export const {} = productSlice.actions;
+export const { } = productSlice.actions;
 
 export default productSlice.reducer;
+
+

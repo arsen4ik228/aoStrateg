@@ -4,9 +4,9 @@ import neww from './src/new.svg';
 import archive from './src/Vector.svg';
 import companyLogo from './src/companyLogo.svg';
 import { useParams } from 'react-router-dom';
-import { AppBar, Box, Toolbar, Typography, IconButton, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText, Grid } from '@mui/material';
-import { Route, Routes, NavLink, useRoutes, Link } from 'react-router-dom'; // Импортируем NavLink вместо Link
 
+import { Box, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText, Grid } from '@mui/material';
+import '@fontsource/montserrat'
 const MenuBar = ({ toggleDrawer, drawerOpen }) => {
   const drawerItems = [
     { text: 'Новый', icon: neww, path: 'new' },
@@ -16,23 +16,23 @@ const MenuBar = ({ toggleDrawer, drawerOpen }) => {
   const { accountId } = useParams(); // Извлекаем accountId из URL
 
   const handleItemClick = (path) => {
-    window.location.href = `/#/${accountId}/${path}`;
+    window.location.href = `/PWA/#/${accountId}/${path}`;
   };
-
+  
   const list = () => (
     <div
       role="presentation"
       onClick={toggleDrawer}
       onKeyDown={toggleDrawer}
     >
-      <List sx={{ backgroundColor: '#005475'}}>
+      <List sx={{ backgroundColor: '#005475', fontFamily: "'Montserrat', sans-serif!important"}}>
         {drawerItems.map((item, index) => (
           <ListItem button key={index} onClick={() => handleItemClick(item.path)}>
-            <Box display="flex" alignItems="center">
+            <Box display="flex" alignItems="center" sx={{fontFamily: "'Montserrat', sans-serif!important"}}>
               <ListItemIcon sx={{ marginLeft: '40px' }}>
                 <img src={item.icon} alt={item.text} />
               </ListItemIcon>
-              <ListItemText primary={item.text} sx={{ marginLeft: '10px', fontSize: '100px', color: '#F0F0F0', fontWeight: 'Montserrat', fontWeight:'600' }}/>
+              <ListItemText primary={item.text} sx={{ marginLeft: '10px', fontSize: '10px', color: '#F0F0F0', fontFamily: "'Montserrat', sans-serif!important", fontWeight:'600' }}/>
             </Box>
           </ListItem>
         ))}

@@ -9,7 +9,7 @@ import Selection from './Selection'
 export default function EditOrder() {
 
     // Состояние для хранения количества
-    const [quantity, setQuantity] = useState('');
+    const [quantity, setQuantity] = useState('1');
 
     // Функция для обновления количества
     const handleQuantityChange = (newQuantity) => {

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, } from 'react';
 import { Box, Typography, Grid } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import {setAccessType} from '../../../../BLL/postSlice'
 const ActiveSelection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isDisabled, setIsDisabled] = useState(true); // Инициализируем как true
+  // const [isDisabled, setIsDisabled] = useState(true); 
 
 
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ const ActiveSelection = () => {
                 backgroundColor: activeIndex === index? "#005475" : 'transparent',
               },
               fontWeight: "500",
-              fontWeight: 'Montserrat',
+              fontFamily: "'Montserrat', sans-serif",
               fontSize: '18px',
              
             }}>

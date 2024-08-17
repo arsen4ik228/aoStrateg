@@ -9,6 +9,7 @@ import depositAdminReducer from './admin/depositAdminSlice';
 import userReducer from './admin/userSlice';
 import priceListReducer from './admin/priceListSlice';
 import postReducer from './postSlice';
+import depositSuperAdminReducer from './superAdmin/depositSuperAdminSlice';
 
 export default configureStore({
   reducer: {
@@ -19,8 +20,10 @@ export default configureStore({
     adminOrder: orderReducer,
     adminArchive: archiveReducer,
     adminDeposit: depositAdminReducer,
-    adminUser: userReducer,
+    adminUsers: userReducer,
     adminPriceList: priceListReducer,
     post: postReducer,
+    superAdminDeposits: depositSuperAdminReducer,
+
   },
 });
