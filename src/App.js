@@ -12,10 +12,16 @@ import Select from './UI/Work/Select/Select.jsx';
 import StartGallery from './UI/New/StartGallery.js'
 import MainGallery from './UI/New/MainGallery.js'
 import PersonalGallery from './UI/New/PersonalGallery.js'
-import UsersMain from './UI/admin/users/UsersMain.jsx';
+import UsersMain from './UI/admin/users/UsersMain.jsx'
 import EditUserMain from './UI/admin/users/EditUser/EditUserMain.jsx';
 import MainExtendedDeposit from './UI/admin/deposit/depositExtended/MainExtendedDeposit.jsx';
 import AddUserMain from './UI/admin/users/AddUser/AddUserMain.jsx';
+import MainCurrentOrder from './UI/admin/currentOrder/MainCurrentOrder.jsx';
+import MainArchiveAdmin from './UI/admin/archive/MainArchiveAdmin.jsx';
+import MainExtendCurrentOrder from './UI/admin/currentOrder/extendCurrentOrder/MainExtendCurrentOrder.jsx';
+import MainAddBookletAdmin from './UI/admin/priceList/addBooklet/MainAddBookletAdmin.jsx';
+import MainAddOrder from './UI/admin/currentOrder/addOrder/MainAddOrder.jsx'
+import MainPriceListAdmin from './UI/admin/priceList/MainPriceListAdmin.jsx';
 import MainDeposit from './UI/admin/deposit/MainDeposit.jsx';
 import { Route, Routes, Navigate } from 'react-router-dom'; // Импортируем NavLink вместо Link
 import { useParams } from 'react-router-dom';
@@ -34,13 +40,21 @@ const App = () => {
               <Route path="users" element={<UsersMain></UsersMain>}></Route>
 
               <Route path="deposit" element={<MainDeposit></MainDeposit>}></Route>
+
+              <Route path="archive" element={<MainArchiveAdmin></MainArchiveAdmin>} ></Route>
+
+              <Route path="priceLists" element={<MainPriceListAdmin></MainPriceListAdmin>} ></Route>
+
+              <Route path="currentOrders" element={<MainCurrentOrder></MainCurrentOrder>}></Route>
             </Routes>
         }></Route>
 
          <Route path=":accountId/admin/users/addUser" element={<AddUserMain></AddUserMain>}></Route> 
          <Route path=":accountId/admin/users/:accountFocusId" element={<EditUserMain></EditUserMain>} ></Route>
          <Route path=":accountId/admin/deposit/:organizationCustomerId" element={<MainExtendedDeposit></MainExtendedDeposit>}></Route> 
-
+         <Route path=":accountId/admin/priceLists/AddBooklet" element={<MainAddBookletAdmin></MainAddBookletAdmin>} ></Route>
+          <Route path=":accountId/admin/currentOrders/:orderId" element={<MainExtendCurrentOrder></MainExtendCurrentOrder>}></Route>
+          <Route path=":accountId/admin/currentOrders/addOrder" element={<MainAddOrder></MainAddOrder>}></Route>
       {/* -----------------USER---------------------------  */}
         <Route path="/*" element={<Main />}></Route>
         <Route path=":accountId" element={<Navigate replace to="new" />}></Route>
