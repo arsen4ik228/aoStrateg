@@ -28,7 +28,8 @@ const ListOfUsers = () =>{
     const truncateString = (str, length) => str.length > length ? `${str.slice(0, length)}...` : str;
 
     return(
-        <div style={{height:'calc(100vh - 50px)', weight:'100%', marginTop:'75px',}}>
+      <>
+        <Grid sx={{height: '100%', weight: '100%', mt:'70px'}}>
       {listOfUsers.map((element) => (
         <Grid key={element.id} container sx={{ height: '36px', color:'black',mt:4,mb:1, fontFamily: "'Montserrat', sans-serif" }} onClick={() => handleNavigation(element.id)} >
 
@@ -47,8 +48,8 @@ const ListOfUsers = () =>{
         </Grid>
       ))}
     
-    </div>
-
+    </Grid>
+    </>
     );
 
 }

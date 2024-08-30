@@ -80,7 +80,7 @@ const ExtendedDeposit = () => {
                         <Box sx={{ fontSize: '14px', fontWeight: '400', mb: '11px' }}>{element.balance}</Box>
                     </Grid>
                 </Grid>
-                ))};
+                ))}
             </Box>
         </>
     )

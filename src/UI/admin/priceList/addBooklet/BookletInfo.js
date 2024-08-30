@@ -1,12 +1,13 @@
 import React from 'react'
 import { Box, Grid, TextField, Checkbox,Button } from '@mui/material'
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { getPriceList } from '../../../../BLL/admin/priceListSlice';
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { postPrice } from '../../../../BLL/admin/priceListSlice';
+import { FormControl, Input } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import dayjs from "dayjs";
@@ -22,8 +23,10 @@ const BookletInfo = ({productId}) => {
     const [dop, setDop] = useState('')
     const [date, setDate] = useState(dayjs())
 
-    const accountId = useParams()
+    const [selectedFile, setSelectedFile] = useState(null);
 
+    const accountId = useParams()
+    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -43,7 +46,9 @@ const BookletInfo = ({productId}) => {
             //selectedFile,
           })
         ).then(() => {
-          dispatch(getPriceList(accountId));
+          dispatch(getPriceList(accountId))
+          navigate(-1)
+
         });
       };
       
@@ -51,21 +56,17 @@ const BookletInfo = ({productId}) => {
     return (
         <>
             <Grid sx={{}}>
-                <Grid container sx={{ height: '195px', color: 'black', fontFamily: "'Montserrat', sans-serif" }} >
-                    <Box sx={{ height: '100px' }}></Box>
-                    {/* <Grid container item xs={6} sx={{ justifyContent: 'flex-start', }} >
-                        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center' }}>
-                            <Box sx={{ fontSize: '18px', fontWeight: '500', ml: '25px', color: '#005475' }}>
-                                Аббр.:
-                            </Box>
-                            <Box sx={{ fontSize: '14px', fontWeight: '400', ml: '25px' }} ></Box>
-                        </Box>
-                    </Grid>
-                    <Grid container item xs={6}  >
-                        <Box sx={{ fontSize: '14px', justifyContent: 'center', alignItems: 'flex-start', mt: '10px' }}>
-                            <TextField id="standard-basic" variant="standard" size="small" onChange={(e) => setAbbreviation(e.target.value)} sx={{ fontFamily: "'Montserrat', sans-serif", }} />
-                        </Box>
-                    </Grid> */}
+                <Grid container sx={{ height: '195px', color: 'black', fontFamily: "'Montserrat', sans-serif", borderBottom: '1px solid #B4B4B4', justifyContent:'center', alignItems:'center' }} >
+                    <Box sx={{ height: '100px', weight: '100%',justifyContent:'center', alignItems:'center'  }}></Box>
+                        <Input
+                          id="file"
+                          name="image"
+                          type="file"
+                          multiple
+                          label="Выберите файл(ы) для загрузки"
+                          sx={{height:'195px', weight:'100%'}}
+                          onChange={(e) => setSelectedFile(e.target.files[0])}
+                        />
                 </Grid>
 
                 <Grid container sx={{ height: '50px', color: 'black', borderBottom: '1px solid #B4B4B4', fontFamily: "'Montserrat', sans-serif" }} >
@@ -158,7 +159,7 @@ const BookletInfo = ({productId}) => {
                     </Grid>
                     <Grid container item xs={6} >
                         <Box sx={{ fontSize: '14px', justifyContent: 'center', alignItems: 'flex-start', mt: '10px' }}>
-                            <TextField id="standard-basic" variant="standard" size="small" onChange={(e) => setPrice(e.target.value)} sx={{ fontFamily: "'Montserrat', sans-serif", }} />
+                            <TextField id="standard-basic" variant="standard" type="number" size="small" onChange={(e) => setPrice(e.target.value)} sx={{ fontFamily: "'Montserrat', sans-serif", }} />
                         </Box>
                     </Grid>
                 </Grid>
@@ -175,7 +176,7 @@ const BookletInfo = ({productId}) => {
                     </Grid>
                     <Grid container item xs={6} >
                         <Box sx={{ fontSize: '14px', justifyContent: 'center', alignItems: 'flex-start', mt: '10px' }}>
-                            <TextField id="standard-basic" variant="standard" size="small" onChange={(e) => setDop(e.target.value)} sx={{ fontFamily: "'Montserrat', sans-serif", }} />
+                            <TextField id="standard-basic" variant="standard" type="number" size="small" onChange={(e) => setDop(e.target.value)} sx={{ fontFamily: "'Montserrat', sans-serif", }} />
                         </Box>
                     </Grid>
                 </Grid>

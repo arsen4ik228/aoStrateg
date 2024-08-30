@@ -19,6 +19,7 @@ import AddUserMain from './UI/admin/users/AddUser/AddUserMain.jsx';
 import MainCurrentOrder from './UI/admin/currentOrder/MainCurrentOrder.jsx';
 import MainArchiveAdmin from './UI/admin/archive/MainArchiveAdmin.jsx';
 import MainExtendCurrentOrder from './UI/admin/currentOrder/extendCurrentOrder/MainExtendCurrentOrder.jsx';
+import MainInnerOrder from './UI/admin/currentOrder/extendCurrentOrder/innerOrder/MainInnerOrder.jsx';
 import MainAddBookletAdmin from './UI/admin/priceList/addBooklet/MainAddBookletAdmin.jsx';
 import MainAddOrder from './UI/admin/currentOrder/addOrder/MainAddOrder.jsx'
 import MainPriceListAdmin from './UI/admin/priceList/MainPriceListAdmin.jsx';
@@ -45,7 +46,7 @@ const App = () => {
 
               <Route path="priceLists" element={<MainPriceListAdmin></MainPriceListAdmin>} ></Route>
 
-              <Route path="currentOrders" element={<MainCurrentOrder></MainCurrentOrder>}></Route>
+              <Route path="currentOrders" element={<MainExtendCurrentOrder></MainExtendCurrentOrder>}></Route>
             </Routes>
         }></Route>
 
@@ -53,7 +54,7 @@ const App = () => {
          <Route path=":accountId/admin/users/:accountFocusId" element={<EditUserMain></EditUserMain>} ></Route>
          <Route path=":accountId/admin/deposit/:organizationCustomerId" element={<MainExtendedDeposit></MainExtendedDeposit>}></Route> 
          <Route path=":accountId/admin/priceLists/AddBooklet" element={<MainAddBookletAdmin></MainAddBookletAdmin>} ></Route>
-          <Route path=":accountId/admin/currentOrders/:orderId" element={<MainExtendCurrentOrder></MainExtendCurrentOrder>}></Route>
+          <Route path=":accountId/admin/currentOrders/:id" element={<MainInnerOrder></MainInnerOrder>}></Route>
           <Route path=":accountId/admin/currentOrders/addOrder" element={<MainAddOrder></MainAddOrder>}></Route>
       {/* -----------------USER---------------------------  */}
         <Route path="/*" element={<Main />}></Route>

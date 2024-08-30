@@ -70,7 +70,7 @@ const AddUser = ({onName, onLastName, onTelephone}) => {
                     </Grid>
                     <Grid container item xs={6} >
                         <Box sx={{ fontSize: '14px', justifyContent: 'center', alignItems: 'flex-start', mt: '10px' }}>
-                            <TextField id="standard-basic" variant="standard" value="+" size="small" onChange={(e) => handleChange(e.target.value)} sx={{fontFamily: "'Montserrat', sans-serif",}} />
+                            <TextField id="standard-basic" variant="standard" size="small" onChange={(e) => handleChange(e.target.value)} sx={{fontFamily: "'Montserrat', sans-serif",}} />
                         </Box>
                     </Grid>
                 </Grid>

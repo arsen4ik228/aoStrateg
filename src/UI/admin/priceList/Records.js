@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { getPriceList,  } from "../../../BLL/admin/priceListSlice";
+import { getPriceList, } from "../../../BLL/admin/priceListSlice";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { AppBar, Toolbar, Typography, IconButton, Box, Grid } from '@mui/material';
 import MenuIcon from '@mui/icons-material/MoreVert';
@@ -31,7 +31,7 @@ const Records = () => {
     const [filteredPricesForEmployers, setFilteredPricesForEmployers] = useState([]);
 
     const [drawerOpen, setDrawerOpen] = useState(false); // Определение состояния drawerOpen и setDrawerOpen
-
+    
     const toggleDrawer = () => {
         setDrawerOpen(!drawerOpen);
     };
@@ -80,7 +80,7 @@ const Records = () => {
         setFilteredPricesInit(filterPrices(pricesInit));
         setFilteredPricesMain(filterPrices(pricesMain));
         setFilteredPricesForEmployers(filterPrices(pricesForEmployers));
-    }, [pricesInit,pricesMain,pricesForEmployers]);
+    }, [pricesInit, pricesMain, pricesForEmployers]);
 
     const disablePastDates = (date) => {
         // Сравниваем дату с текущей датой
@@ -125,22 +125,28 @@ const Records = () => {
             <MenuBar toggleDrawer={toggleDrawer} drawerOpen={drawerOpen} /> {/* Передаем toggleDrawer и drawerOpen в MenuBar */}
 
             <Box sx={{ flexGrow: 1, fontFamily: "'Montserrat', sans-serif" }}>
+                
                 <Box sx={{ fontSize: '18px', fontFamily: "'Montserrat', sans-serif", fontWeight: '600', mr: '30px', ml: '30px', mt: '12px', justifyContent: 'flex-start', alignItems: 'center', }}>Начальные</Box>
                 <Grid container sx={{ height: '45px', fontFamily: "'Montserrat', sans-serif", fontStyle: 'italic' }}>
                     {/* Колонка 1 */}
-                    <Grid container item xs={4} sx={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <Grid container item xs={3} sx={{ justifyContent: 'center', alignItems: 'center' }}>
                         <Box sx={{ fontSize: '16px', fontWeight: '400', mr: '30px', ml: '30px', textAlign: 'center', justifyContent: 'center', alignItems: 'center', }}>Курс</Box>
                     </Grid>
 
                     {/* Колонка 3 */}
-                    <Grid container item xs={4} sx={{ justifyContent: 'flex-end', alignItems: 'center' }}>
+                    <Grid container item xs={3} sx={{ justifyContent: 'flex-end', alignItems: 'center' }}>
                         <Box sx={{ fontSize: '16px', fontWeight: '400', mr: '30px', ml: '30px', textAlign: 'center', justifyContent: 'center', alignItems: 'center', color: '#B4B4B4' }}>Доступ</Box>
 
                     </Grid>
 
                     {/* Колонка 4 */}
-                    <Grid container item xs={4} sx={{ justifyContent: 'flex-end', alignItems: 'center' }}>
+                    <Grid container item xs={3} sx={{ justifyContent: 'flex-end', alignItems: 'center' }}>
                         <Box sx={{ fontSize: '16px', fontWeight: '400', mr: '30px', ml: '30px', textAlign: 'center', justifyContent: 'center', alignItems: 'center', color: '#B4B4B4' }}>Доп.</Box>
+
+                    </Grid>
+
+                    <Grid container item xs={3} sx={{ justifyContent: 'flex-end', alignItems: 'center' }}>
+                        <Box sx={{ fontSize: '16px', fontWeight: '400', mr: '30px', ml: '30px', textAlign: 'center', justifyContent: 'center', alignItems: 'center', color: '#B4B4B4' }}>Дата</Box>
 
                     </Grid>
                 </Grid>
@@ -148,21 +154,36 @@ const Records = () => {
                 {filteredPricesInit?.map((element) =>
                     <Grid container sx={{ height: '45px', fontFamily: "'Montserrat', sans-serif", }}>
                         {/* Колонка 1 */}
-                        <Grid container item xs={4} sx={{ justifyContent: 'center', alignItems: 'center' }}>
+                        <Grid container item xs={3} sx={{ justifyContent: 'center', alignItems: 'center' }}>
                             <Box sx={{ fontSize: '16px', fontWeight: '500', mr: '30px', ml: '30px', textAlign: 'center', justifyContent: 'center', alignItems: 'center', }}>{element.productAbbreviation}</Box>
                         </Grid>
 
                         {/* Колонка 3 */}
-                        <Grid container item xs={4} sx={{ justifyContent: 'flex-end', alignItems: 'center' }}>
+                        <Grid container item xs={3} sx={{ justifyContent: 'flex-end', alignItems: 'center' }}>
                             <Box sx={{ fontSize: '16px', fontWeight: '500', mr: '30px', ml: '30px', textAlign: 'center', justifyContent: 'center', alignItems: 'center', color: '#B4B4B4' }}>{element.priceAccess}</Box>
 
                         </Grid>
 
                         {/* Колонка 4 */}
-                        <Grid container item xs={4} sx={{ justifyContent: 'flex-end', alignItems: 'center', }}>
+                        <Grid container item xs={3} sx={{ justifyContent: 'flex-end', alignItems: 'center', }}>
                             <Box sx={{ fontSize: '16px', fontWeight: '500', mr: '30px', ml: '30px', textAlign: 'center', justifyContent: 'center', alignItems: 'center', color: '#B4B4B4' }}>{element.priceBooklet}</Box>
 
                         </Grid>
+                        <Grid container item xs={3} sx={{ justifyContent: 'flex-end', alignItems: 'center', }}>
+                            <Box sx={{
+                                fontSize: '16px', fontWeight: '500', mr: '30px', ml: '30px', textAlign: 'center', justifyContent: 'center', alignItems: 'center', color: '#B4B4B4',
+                                display: 'flex',
+                                '& span:nth-child(7)': { visibility: 'hidden', opacity: '0' },
+                                '& span:nth-child(8)': { visibility: 'hidden', opacity: '0' },
+                                '& > *:nth-child(9)': { marginLeft: '-20px' },
+                            }}>
+                                {element.formattedActivationDate.split('').map((char, index) => (
+                                    <span key={index}>{char}</span>
+                                ))}
+                            </Box>
+
+                        </Grid>
+
                     </Grid>
                 )}
             </Box>
@@ -171,38 +192,57 @@ const Records = () => {
                 <Box sx={{ fontSize: '18px', fontFamily: "'Montserrat', sans-serif", fontWeight: '600', mr: '30px', ml: '30px', mt: '12px', justifyContent: 'flex-start', alignItems: 'center', }}>Основные</Box>
                 <Grid container sx={{ height: '45px', fontFamily: "'Montserrat', sans-serif", fontStyle: 'italic' }}>
                     {/* Колонка 1 */}
-                    <Grid container item xs={4} sx={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <Grid container item xs={3} sx={{ justifyContent: 'center', alignItems: 'center' }}>
                         <Box sx={{ fontSize: '16px', fontWeight: '400', mr: '30px', ml: '30px', textAlign: 'center', justifyContent: 'center', alignItems: 'center', }}>Курс</Box>
                     </Grid>
 
                     {/* Колонка 3 */}
-                    <Grid container item xs={4} sx={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <Grid container item xs={3} sx={{ justifyContent: 'center', alignItems: 'center' }}>
                         <Box sx={{ fontSize: '16px', fontWeight: '400', mr: '30px', ml: '30px', textAlign: 'center', justifyContent: 'center', alignItems: 'center', color: '#B4B4B4' }}>Доступ</Box>
 
                     </Grid>
 
                     {/* Колонка 4 */}
-                    <Grid container item xs={4} sx={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <Grid container item xs={3} sx={{ justifyContent: 'center', alignItems: 'center' }}>
                         <Box sx={{ fontSize: '16px', fontWeight: '400', mr: '30px', ml: '30px', textAlign: 'center', justifyContent: 'center', alignItems: 'center', color: '#B4B4B4' }}>Доп.</Box>
+
+                    </Grid>
+                    <Grid container item xs={3} sx={{ justifyContent: 'flex-end', alignItems: 'center' }}>
+                        <Box sx={{ fontSize: '16px', fontWeight: '400', mr: '30px', ml: '30px', textAlign: 'center', justifyContent: 'center', alignItems: 'center', color: '#B4B4B4' }}>Дата</Box>
 
                     </Grid>
                 </Grid>
                 {filteredPricesMain?.map((element) =>
                     <Grid container sx={{ height: '45px', fontFamily: "'Montserrat', sans-serif", }}>
                         {/* Колонка 1 */}
-                        <Grid container item xs={4} sx={{ justifyContent: 'center', alignItems: 'center' }}>
+                        <Grid container item xs={3} sx={{ justifyContent: 'center', alignItems: 'center' }}>
                             <Box sx={{ fontSize: '16px', fontWeight: '500', mr: '30px', ml: '30px', textAlign: 'center', justifyContent: 'center', alignItems: 'center', }}>{element.productAbbreviation}</Box>
                         </Grid>
 
                         {/* Колонка 3 */}
-                        <Grid container item xs={4} sx={{ justifyContent: 'flex-end', alignItems: 'center' }}>
+                        <Grid container item xs={3} sx={{ justifyContent: 'flex-end', alignItems: 'center' }}>
                             <Box sx={{ fontSize: '16px', fontWeight: '500', mr: '30px', ml: '30px', textAlign: 'center', justifyContent: 'center', alignItems: 'center', color: '#B4B4B4' }}>{element.priceAccess}</Box>
 
                         </Grid>
 
                         {/* Колонка 4 */}
-                        <Grid container item xs={4} sx={{ justifyContent: 'flex-end', alignItems: 'center', }}>
+                        <Grid container item xs={3} sx={{ justifyContent: 'flex-end', alignItems: 'center', }}>
                             <Box sx={{ fontSize: '16px', fontWeight: '500', mr: '30px', ml: '30px', textAlign: 'center', justifyContent: 'center', alignItems: 'center', color: '#B4B4B4' }}>{element.priceBooklet}</Box>
+
+                        </Grid>
+
+                        <Grid container item xs={3} sx={{ justifyContent: 'flex-end', alignItems: 'center', }}>
+                            <Box sx={{
+                                fontSize: '16px', fontWeight: '500', mr: '30px', ml: '30px', textAlign: 'center', justifyContent: 'center', alignItems: 'center', color: '#B4B4B4',
+                                display: 'flex',
+                                '& span:nth-child(7)': { visibility: 'hidden', opacity: '0' },
+                                '& span:nth-child(8)': { visibility: 'hidden', opacity: '0' },
+                                '& > *:nth-child(9)': { marginLeft: '-20px' },
+                            }}>
+                                {element.formattedActivationDate.split('').map((char, index) => (
+                                    <span key={index}>{char}</span>
+                                ))}
+                            </Box>
 
                         </Grid>
                     </Grid>
@@ -213,38 +253,58 @@ const Records = () => {
                 <Box sx={{ fontSize: '18px', fontFamily: "'Montserrat', sans-serif", fontWeight: '600', mr: '30px', ml: '30px', mt: '12px', justifyContent: 'flex-start', alignItems: 'center', }}>Для персонала</Box>
                 <Grid container sx={{ height: '45px', fontFamily: "'Montserrat', sans-serif", fontStyle: 'italic' }}>
                     {/* Колонка 1 */}
-                    <Grid container item xs={4} sx={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <Grid container item xs={3} sx={{ justifyContent: 'center', alignItems: 'center' }}>
                         <Box sx={{ fontSize: '16px', fontWeight: '400', mr: '30px', ml: '30px', textAlign: 'center', justifyContent: 'center', alignItems: 'center', }}>Курс</Box>
                     </Grid>
 
                     {/* Колонка 3 */}
-                    <Grid container item xs={4} sx={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <Grid container item xs={3} sx={{ justifyContent: 'center', alignItems: 'center' }}>
                         <Box sx={{ fontSize: '16px', fontWeight: '400', mr: '30px', ml: '30px', textAlign: 'center', justifyContent: 'center', alignItems: 'center', color: '#B4B4B4' }}>Доступ</Box>
 
                     </Grid>
 
                     {/* Колонка 4 */}
-                    <Grid container item xs={4} sx={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <Grid container item xs={3} sx={{ justifyContent: 'center', alignItems: 'center' }}>
                         <Box sx={{ fontSize: '16px', fontWeight: '400', mr: '30px', ml: '30px', textAlign: 'center', justifyContent: 'center', alignItems: 'center', color: '#B4B4B4' }}>Доп.</Box>
+
+                    </Grid>
+
+                    <Grid container item xs={3} sx={{ justifyContent: 'flex-end', alignItems: 'center' }}>
+                        <Box sx={{ fontSize: '16px', fontWeight: '400', mr: '30px', ml: '30px', textAlign: 'center', justifyContent: 'center', alignItems: 'center', color: '#B4B4B4' }}>Дата</Box>
 
                     </Grid>
                 </Grid>
                 {filteredPricesForEmployers?.map((element) =>
                     <Grid container sx={{ height: '45px', fontFamily: "'Montserrat', sans-serif", }}>
                         {/* Колонка 1 */}
-                        <Grid container item xs={4} sx={{ justifyContent: 'center', alignItems: 'center' }}>
+                        <Grid container item xs={3} sx={{ justifyContent: 'center', alignItems: 'center' }}>
                             <Box sx={{ fontSize: '16px', fontWeight: '500', mr: '30px', ml: '30px', textAlign: 'center', justifyContent: 'center', alignItems: 'center', }}>{element.productAbbreviation}</Box>
                         </Grid>
 
                         {/* Колонка 3 */}
-                        <Grid container item xs={4} sx={{ justifyContent: 'flex-end', alignItems: 'center' }}>
+                        <Grid container item xs={3} sx={{ justifyContent: 'flex-end', alignItems: 'center' }}>
                             <Box sx={{ fontSize: '16px', fontWeight: '500', mr: '30px', ml: '30px', textAlign: 'center', justifyContent: 'center', alignItems: 'center', color: '#B4B4B4' }}>{element.priceAccess}</Box>
 
                         </Grid>
 
                         {/* Колонка 4 */}
-                        <Grid container item xs={4} sx={{ justifyContent: 'flex-end', alignItems: 'center', }}>
+                        <Grid container item xs={3} sx={{ justifyContent: 'flex-end', alignItems: 'center', }}>
                             <Box sx={{ fontSize: '16px', fontWeight: '500', mr: '30px', ml: '30px', textAlign: 'center', justifyContent: 'center', alignItems: 'center', color: '#B4B4B4' }}>{element.priceBooklet}</Box>
+
+                        </Grid>
+
+                        <Grid container item xs={3} sx={{ justifyContent: 'flex-end', alignItems: 'center', }}>
+                            <Box sx={{
+                                fontSize: '16px', fontWeight: '500', mr: '30px', ml: '30px', textAlign: 'center', justifyContent: 'center', alignItems: 'center', color: '#B4B4B4',
+                                display: 'flex',
+                                '& span:nth-child(7)': { visibility: 'hidden', opacity: '0' },
+                                '& span:nth-child(8)': { visibility: 'hidden', opacity: '0' },
+                                '& > *:nth-child(9)': { marginLeft: '-20px' },
+                            }}>
+                                {element.formattedActivationDate.split('').map((char, index) => (
+                                    <span key={index}>{char}</span>
+                                ))}
+                            </Box>
 
                         </Grid>
                     </Grid>

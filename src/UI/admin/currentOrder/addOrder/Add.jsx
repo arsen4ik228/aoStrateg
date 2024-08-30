@@ -20,7 +20,7 @@ import { styled } from "@mui/system";
 import { useState, useEffect } from "react";
 import CustomStyledCheckbox from "./CustomStyledCheckbox";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import plus from "./image/plus.svg";
 import { getOrder, putNewOrder } from "../../../../BLL/admin/orderSlice"
 import SelectProduct from "./SelectProduct";
@@ -91,6 +91,7 @@ export default function Add({
     Array.isArray(products) &&
     allIds.reduce((acc, id) => acc + (sumForOneProduct[id] || 0), 0);
 
+    const navigate = useNavigate();
   useEffect(() => {
     // Инициализация sumForOneTitle
     const initialSumForOneTitle =
@@ -212,10 +213,9 @@ export default function Add({
       ).then(() => {
         dispatch(getOrder(accountId));
         resetStates();
-        setIsOpen(false);
         setIsLoadingModalSave(false);
-        setSnackbarOpen(true);
-      }, () => { setIsLoadingModalSave(false); setSnackbarOpen(true); });
+        navigate(-1);
+      }, () => { setIsLoadingModalSave(false); });
     } else {
       setIsLoadingModalSave(false);
       setSnackbarOpenEmpty(true);
@@ -300,7 +300,7 @@ export default function Add({
           >
           </IconButton>
 
-          {/* <Grid sx={{ position: 'fixed', top: 55, left: 0, bottom: 0, right: 0, width: '100%', height: '250px' ,zIndex: 1000 }}>
+          <Grid sx={{ position: 'fixed', top: 55, left: 0, bottom: 0, right: 0, width: '100%', height: '250px', zIndex: 1000 }}>
 
             <Grid container sx={{ height: '50px', color: 'black', borderBottom: '1px solid #B4B4B4', fontFamily: "'Montserrat', sans-serif" }} >
 
@@ -454,7 +454,7 @@ export default function Add({
                     >
                       Оплачен
                     </MenuItem>
-        
+
                     <MenuItem
                       value="Отменен"
                       sx={{
@@ -523,121 +523,125 @@ export default function Add({
                 </Box>
               </Grid>
             </Grid>
-          </Grid> */}
+          </Grid>
 
           {products[0]?.productTypeId === 4 ? (
-                <TableContainer
-                  component={Paper}
-                  sx={{
-                    marginTop: "50px",
-                    maxHeight: "calc(100vh - 350px)",
-                    overflow: "auto",
-                    scrollbarWidth: "thin",
-                    scrollbarColor: "#005475 #FFFFFF",
-                  }}
-                >
-                  <Table stickyHeader>
-                    <TableHead>
-                    <IconButton onClick={handleChangeOpenModalProduct}>
-                            <img src={plus} alt="плюс" />
-                          </IconButton>
-                    </TableHead>
-                    <TableBody>
-                      {Array.isArray(products) &&
-                        products.map((product) => (
-                          <TableRow key={product.id}>
-                            <Box
-                              sx={{
-                                fontFamily: "Montserrat",
-                                fontSize: "16px",
-                                textAlign: "center",
-                                width: "70px",
-                              }}
-                            >
-                              {product.name.split("&quot;").join('"')}
-                            </Box>
+            
+                  <>
+                  <IconButton onClick={handleChangeOpenModalProduct}>
+                    <img src={plus} alt="плюс" />
+                  </IconButton>
+                  <Grid sx={{ width: '100%', zIndex: 1,overflow: 'auto', mt:'345px', height:'calc(100vh - 400px)', position:'fixed', overflow: 'auto'}}>
+                  {Array.isArray(products) &&
+                    products.map((product) => (
+                      <Box key={product.id}>
+                        <Box
+                          sx={{
+                            fontFamily: "Montserrat",
+                            fontSize: "16px",
+                            textAlign: "center",
+                            width: "70px",
+                          }}
+                        >
+                          {product.name.split("&quot;").join('"')}
+                        </Box>
 
-                            <Box sx={{ textAlign: "center" }}>
-                              <TextField
-                                variant="standard"
-                                sx={{
-                                  width: "80px",
-                                  textAlign: "center",
-                                }}
-                                type="number"
-                                value={
-                                  productInputQuantity[product.id] ||
-                                  (isFieldCleared[product.id] ? "" : "")
-                                }
-                                onChange={(event) =>
-                                  handleChangeInputQuantity(
-                                    event,
-                                    product.id,
-                                    product
-                                  )
-                                }
-                              />
-                            </Box>
+                        <Box sx={{ textAlign: "center" }}>
+                          <TextField
+                            variant="standard"
+                            sx={{
+                              width: "80px",
+                              textAlign: "center",
+                            }}
+                            type="number"
+                            value={
+                              productInputQuantity[product.id] ||
+                              (isFieldCleared[product.id] ? "" : "")
+                            }
+                            onChange={(event) =>
+                              handleChangeInputQuantity(
+                                event,
+                                product.id,
+                                product
+                              )
+                            }
+                          />
+                        </Box>
 
-                            <Box sx={{ textAlign: "center" }}>
-                              {checkProductBooklet[product.id]
-                                ? product.priceBooklet
-                                : product.priceAccess}
-                              &#x20bd;
-                            </Box>
+                        <Box sx={{ textAlign: "center" }}>
+                          {checkProductBooklet[product.id]
+                            ? product.priceBooklet
+                            : product.priceAccess}
+                          &#x20bd;
+                        </Box>
 
-                            <Box
-                              sx={{
-                                fontFamily: "Montserrat",
-                                fontSize: "16px",
+                        <Box
+                          sx={{
+                            fontFamily: "Montserrat",
+                            fontSize: "16px",
 
-                                color: "black",
-                                textAlign: "center",
-                              }}
-                            >
-                              {sumForOneProduct[product.id]} &#x20bd;
-                            </Box>
-                          </TableRow>
-                        ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              ) : (
-                // <TableContainer
-                //   component={Paper}
-                //   sx={{
-                //     marginTop: "50px",
-                //     maxHeight: "calc(100vh - 350px)",
-                //     overflow: "auto",
-                //     scrollbarWidth: "thin",
-                //     scrollbarColor: "#005475 #FFFFFF",
-                //   }}
-                // >
-                  // <Table stickyHeader>
-                    // <TableHead>
-                      <>
-                      <Box sx={{weight: '100%', borderBottom: '2px solid #005475', mt:'55px',}}>
-                          <IconButton onClick={handleChangeOpenModalProduct}>
-                            <img src={plus} alt="плюс" />
-                          </IconButton>
-                      {/* </TableHead> */}
-                    </Box>
-                    <Box>
-                      {Array.isArray(products) &&
-                        products.map((product) => (
-                          <Box key={product.id}>
-                            <Box
-                              sx={{
-                                fontFamily: "Montserrat",
-                                fontSize: "16px",
+                            color: "black",
+                            textAlign: "center",
+                          }}
+                        >
+                          {sumForOneProduct[product.id]} &#x20bd;
+                        </Box>
+                      </Box>
+                    ))}
+                </Grid>
+            
+            </>
+          ) : (
+            // <TableContainer
+            //   component={Paper}
+            //   sx={{
+            //     marginTop: "50px",
+            //     maxHeight: "calc(100vh - 350px)",
+            //     overflow: "auto",
+            //     scrollbarWidth: "thin",
+            //     scrollbarColor: "#005475 #FFFFFF",
+            //   }}
+            // >
+            // <Table stickyHeader>
+            // <TableHead>
+            <>
+              <Box sx={{ weight: '100%', borderBottom: '2px solid #005475', zIndex: 100, height:'40px' ,position:'fixed',top:'0',bottom:'0',left:'0',right:'0',mt:'305px'}}>
+                <IconButton onClick={handleChangeOpenModalProduct}>
+                  <img src={plus} alt="плюс" />
+                </IconButton>
+                {/* </TableHead> */}
+              </Box>
 
-                                color: "black",
-                                textAlign: "center",
-                                width: "70px",
-                              }}
-                            >
-                              {product.name.split("&quot;").join('"')}
+              <Grid sx={{ width: '100%', zIndex: 1,overflow: 'auto', mt:'345px', height:'calc(100vh - 400px)', position:'fixed', overflow: 'auto'}}>
+
+                {Array.isArray(products) &&
+                  products.map((product) => (
+                    <Box key={product.id}>
+                        <Grid container sx={{ justifyContent: 'center', alignItems: 'center', justifyContent:'center',borderBottom: '1px solid #B4B4B4', }} >
+                          <Box
+                            sx={{
+                              fontFamily: "Montserrat",
+                              fontSize: "18px",
+                              fontWeight:'600',
+                              color: "black",
+                              textAlign: "center",
+                              width: "100%",
+                              mt:1,
+                              mb:1,
+                            }}
+                          >
+                            {product.name.split("&quot;").join('"')}
+                          </Box>
+                        </Grid>
+
+                        <Grid container sx={{ height: '50px', color: 'black',fontFamily: "'Montserrat', sans-serif" }} >
+                          <Grid container item xs={6} sx={{ justifyContent: 'flex-start', alignItems: 'center' }} >
+                            <Box sx={{ fontSize: '18px', fontWeight: '500', ml: '25px', color: '#005475' }}>
+                              Доступ
                             </Box>
+                          </Grid>
+
+                          <Grid container item xs={6} sx={{ justifyContent: 'center', alignItems: 'center' }} >
 
                             <Box>
                               <Select
@@ -646,7 +650,7 @@ export default function Add({
                                   checkProductBooklet[product.id]
                                     ? null
                                     : selectProductAccessType[product.id] ||
-                                      "Электронный"
+                                    "Электронный"
                                 }
                                 disabled={
                                   checkProductBooklet[product.id] || false
@@ -696,131 +700,192 @@ export default function Add({
                                 </MenuItem>
                               </Select>
                             </Box>
+                          </Grid>
+                        </Grid>
 
-                            <Box>
-                              <Select
-                                variant="standard"
-                                value={
-                                  selectProductGeneration[product.id] ||
-                                  "Второе поколение"
-                                }
-                                onChange={(event) =>
-                                  handleChangeGeneration(event, product.id)
-                                }
+
+                      <Grid container sx={{ height: '50px', color: 'black', fontFamily: "'Montserrat', sans-serif" }} >
+                        <Grid container item xs={6} sx={{ justifyContent: 'flex-start', alignItems: 'center' }} >
+                          <Box sx={{ fontSize: '18px', fontWeight: '500', ml: '25px', color: '#005475' }}>
+                            Поколение
+                          </Box>
+                        </Grid>
+
+                        <Grid container item xs={6} sx={{ justifyContent: 'center', alignItems: 'center' }} >
+
+                          <Box>
+                            <Select
+                              variant="standard"
+                              value={
+                                selectProductGeneration[product.id] ||
+                                "Второе поколение"
+                              }
+                              onChange={(event) =>
+                                handleChangeGeneration(event, product.id)
+                              }
+                              sx={{
+                                fontFamily: "Montserrat",
+                                fontSize: "16px",
+
+                                color: "black",
+                                textAlign: "center",
+                                cursor: "pointer",
+                                width: "150px",
+                              }}
+                            >
+                              <MenuItem
+                                value="Первое поколение"
                                 sx={{
                                   fontFamily: "Montserrat",
                                   fontSize: "16px",
 
-                                  color: "black",
+                                  color: "#999999",
                                   textAlign: "center",
                                   cursor: "pointer",
-                                  width: "150px",
                                 }}
                               >
-                                <MenuItem
-                                  value="Первое поколение"
-                                  sx={{
-                                    fontFamily: "Montserrat",
-                                    fontSize: "16px",
-
-                                    color: "#999999",
-                                    textAlign: "center",
-                                    cursor: "pointer",
-                                  }}
-                                >
-                                  Первое поколение
-                                </MenuItem>
-                                <MenuItem
-                                  value="Второе поколение"
-                                  sx={{
-                                    fontFamily: "Montserrat",
-                                    fontSize: "16px",
-
-                                    color: "#999999",
-                                    textAlign: "center",
-                                    cursor: "pointer",
-                                  }}
-                                >
-                                  Второе поколение
-                                </MenuItem>
-                              </Select>
-                            </Box>
-
-                            <Box
-                              sx={{
-                                fontFamily: "Montserrat",
-                                fontSize: "16px",
-
-                                color: "black",
-                                textAlign: "center",
-                              }}
-                            >
-                              <CustomStyledCheckbox
-                                checked={checkProductBooklet[product.id]}
-                                onChange={(event) =>
-                                  handleChangeCheckboxBooklet(event, product.id)
-                                }
-                              ></CustomStyledCheckbox>
-                            </Box>
-
-                            <Box>
-                              <TextField
-                                variant="standard"
+                                Первое поколение
+                              </MenuItem>
+                              <MenuItem
+                                value="Второе поколение"
                                 sx={{
-                                  width: "80px",
+                                  fontFamily: "Montserrat",
+                                  fontSize: "16px",
+
+                                  color: "#999999",
+                                  textAlign: "center",
+                                  cursor: "pointer",
                                 }}
-                                type="number"
-                                value={
-                                  productInputQuantity[product.id] ||
-                                  (isFieldCleared[product.id] ? "" : 1)
-                                }
-                                onChange={(event) =>
-                                  handleChangeInputQuantity(
-                                    event,
-                                    product.id,
-                                    product
-                                  )
-                                }
-                              />
-                            </Box>
-
-                            <Box>
-                              {checkProductBooklet[product.id]
-                                ? product.priceBooklet
-                                : product.priceAccess}
-                              &#x20bd;
-                            </Box>
-
-                            <Box
-                              sx={{
-                                fontFamily: "Montserrat",
-                                fontSize: "16px",
-
-                                color: "black",
-                                textAlign: "center",
-                              }}
-                            >
-                              {sumForOneProduct[product.id]} &#x20bd;
-                            </Box>
+                              >
+                                Второе поколение
+                              </MenuItem>
+                            </Select>
                           </Box>
-                        ))}
-                    </Box>
-                   </>
-                  // {/* </Table> */}
-                // </TableContainer>
-              )}
+                          </Grid>
+                          </Grid>
 
-              {/* <TypographyStyle>Итого: {totalSum} &#x20bd;</TypographyStyle>
+
+                          <Grid container sx={{ height: '50px', color: 'black', fontFamily: "'Montserrat', sans-serif" }} >
+                          <Grid container item xs={6} sx={{ justifyContent: 'flex-start', alignItems: 'center' }} >
+                            <Box sx={{ fontSize: '18px', fontWeight: '500', ml: '25px', color: '#005475' }}>
+                              Доп.буклет
+                            </Box>
+                          </Grid>
+
+                          <Grid container item xs={6} sx={{ justifyContent: 'center', alignItems: 'center' }} >
+
+                          <Box
+                            sx={{
+                              fontFamily: "Montserrat",
+                              fontSize: "16px",
+
+                              color: "black",
+                              textAlign: "center",
+                            }}
+                          >
+                            <CustomStyledCheckbox
+                              checked={checkProductBooklet[product.id]}
+                              onChange={(event) =>
+                                handleChangeCheckboxBooklet(event, product.id)
+                              }
+                            ></CustomStyledCheckbox>
+                          </Box>
+                          </Grid>
+                              </Grid>
+
+                              <Grid container sx={{ height: '50px', color: 'black', fontFamily: "'Montserrat', sans-serif" }} >
+                          <Grid container item xs={6} sx={{ justifyContent: 'flex-start', alignItems: 'center' }} >
+                            <Box sx={{ fontSize: '18px', fontWeight: '500', ml: '25px', color: '#005475' }}>
+                              Количество
+                            </Box>
+                          </Grid>
+
+                          <Grid container item xs={6} sx={{ justifyContent: 'center', alignItems: 'center' }} >
+
+                          <Box>
+                            <TextField
+                              variant="standard"
+                              sx={{
+                                width: "80px",
+                              }}
+                              type="number"
+                              value={
+                                productInputQuantity[product.id] ||
+                                (isFieldCleared[product.id] ? "" : 1)
+                              }
+                              onChange={(event) =>
+                                handleChangeInputQuantity(
+                                  event,
+                                  product.id,
+                                  product
+                                )
+                              }
+                            />
+                          </Box>
+
+                          </Grid>
+                            </Grid>
+
+                            <Grid container sx={{ height: '50px', color: 'black', fontFamily: "'Montserrat', sans-serif", borderBottom: '1px solid #B4B4B4' }} >
+                          <Grid container item xs={6} sx={{ justifyContent: 'flex-start', alignItems: 'center' }} >
+                            <Box sx={{ fontSize: '18px', fontWeight: '500', ml: '25px', color: '#005475' }}>
+                              Цена
+                            </Box>
+                          </Grid>
+
+                          <Grid container item xs={6} sx={{ justifyContent: 'center', alignItems: 'center' }} >
+
+                          <Box sx={{fontFamily: "Montserrat",}}>
+                            {checkProductBooklet[product.id]
+                              ? product.priceBooklet
+                              : product.priceAccess}
+                            &#x20bd;
+                          </Box>
+                              </Grid>
+                              </Grid>
+                          {/* <Box
+                            sx={{
+                              fontFamily: "Montserrat",
+                              fontSize: "16px",
+
+                              color: "black",
+                              textAlign: "center",
+                            }}
+                          >
+                            {sumForOneProduct[product.id]} &#x20bd;
+                          </Box> */}
+
+
+                        </Box>
+                  ))}
+                      </Grid>
+                    </>
+                    // {/* </Table> */}
+                    // </TableContainer>
+                  )}
+
+                <TypographyStyle>Итого: {totalSum} &#x20bd;</TypographyStyle>
               <Box
                 sx={{
-                  display: "flex",
-                  justifyContent: "flex-end", // Плавное выравнивание кнопок справа
-                  marginTop: "60px",
-                  marginRight: "10px",
-                  gap: "15px",
-                  marginBottom: "20px",
+                  
+                  position: 'fixed',
+                  zIndex: 1000,
+                  left: 0,
+                  bottom: 0,
+                  width: '100%',
+                  height: '50px',
+                  backgroundColor: 'white',
+                  color: '#005475', // Белый цвет текста для контраста
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  // padding: '10px 20px', // Отступы внутри футера
+                  // boxSizing: 'border-box', // Учитывать внутренние отступы в ширину
+                  boxShadow: '0 -1px 1px rgba(0, 0, 0, 0.25)',
+
                 }}
               >
+                <TypographyStyle>Итого: {totalSum} &#x20bd;</TypographyStyle>
                 <Button
                   variant="contained"
                   onClick={handleSave}
@@ -848,6 +913,7 @@ export default function Add({
                     color: "#000000",
                     fontSize: "14px",
                     fontWeight: 600,
+                    ml:3,
                     fontFamily: "Montserrat",
                     border: 0,
                     "&:hover": {
@@ -858,10 +924,10 @@ export default function Add({
                 >
                   Сбросить
                 </Button>
-              </Box> */}
+              </Box>
 
-          {/* </Box> */}
-        </>
+                {/* </Box> */}
+              </>
         // </div>
         // </Modal>
       )}

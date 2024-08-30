@@ -11,16 +11,16 @@ import { Box, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText, Grid 
 import '@fontsource/montserrat'
 const MenuBar = ({ toggleDrawer, drawerOpen }) => {
   const drawerItems = [
-    { text: 'Текущие', icon: work, path: 'work' },
+    { text: 'Текущие', icon: work, path: 'currentOrders' },
     { text: 'Архив', icon: archive, path: 'archive' },
-    { text: 'Прайс-листы', icon: price, path: 'price' },
+    { text: 'Прайс-листы', icon: price, path: 'priceLists' },
     { text: 'Пользователи', icon: users, path: 'users' },
     { text: 'Депозиты', icon: deposit, path: 'deposit' },
   ];
   const { accountId } = useParams(); // Извлекаем accountId из URL
 
   const handleItemClick = (path) => {
-    window.location.href = `/PWA/#/${accountId}/${path}`;
+    window.location.href = `/PWA/#/${accountId}/admin/${path}`;
   };
   
   const list = () => (

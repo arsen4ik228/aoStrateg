@@ -40,11 +40,10 @@ export const getNewOrder = createAsyncThunk(
     try {
       // Используем шаблонные строки для динамического формирования URL
       const response = await instance.get(`${accountId}/orders/admin/newOrder`);
-      const organizationsSort = response.data.allOrganizations.sort((a,b) => {
-        if(a.organizationName > b.organizationName){
+      const organizationsSort = response.data.allOrganizations.sort((a, b) => {
+        if (a.organizationName > b.organizationName) {
           return 1;
-        } 
-        else if (a.organizationName < b.organizationName){
+        } else if (a.organizationName < b.organizationName) {
           return -1;
         } else {
           return 0;
@@ -161,6 +160,22 @@ export const updateTitleOrderAdmin = createAsyncThunk(
     }
   }
 );
+
+export const deleteTitleOrder = createAsyncThunk(
+  "work/deleteTitleOrder",
+  async ({ accountId, orderId, titleId }, { rejectWithValue }) => {
+    try {
+      // Используем шаблонные строки для динамического формирования URL
+      const response = await instance.delete(
+        `/${accountId}/orders/${orderId}/delete/${titleId}`
+      );
+      return response;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const orderSlice = createSlice({
   name: "order",
   initialState: {
@@ -175,6 +190,9 @@ const orderSlice = createSlice({
     allPayees: [],
     status: null,
     error: null,
+    errorUpdateTitleOrderAdmin: null,
+    errorPutNewOrder: null,
+    errorDeleteTitleOrder: null,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -229,15 +247,48 @@ const orderSlice = createSlice({
         console.log("updateTitleOrderAdmin pending");
         state.status = "loading";
         state.error = null;
+        state.errorUpdateTitleOrderAdmin = null;
       })
       .addCase(updateTitleOrderAdmin.fulfilled, (state, action) => {
         console.log("updateTitleOrderAdmin fulfilled", action.payload);
         state.status = "resolved";
+        state.errorUpdateTitleOrderAdmin = 200;
       })
       .addCase(updateTitleOrderAdmin.rejected, (state, action) => {
         console.log("updateTitleOrderAdmin rejected", action.payload);
         state.status = "rejected";
         state.error = action.payload;
+        state.errorUpdateTitleOrderAdmin = "что-то пошло не так";
+      })
+      //putNewOrder
+      .addCase(putNewOrder.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+        state.errorPutNewOrder = null;
+      })
+      .addCase(putNewOrder.fulfilled, (state, action) => {
+        state.status = "resolved";
+        state.errorPutNewOrder = 200;
+      })
+      .addCase(putNewOrder.rejected, (state, action) => {
+        state.status = "rejected";
+        state.error = action.payload;
+        state.errorPutNewOrder = "что-то пошло не так";
+      })
+      //deleteTitleOrder
+      .addCase(deleteTitleOrder.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+        state.errorDeleteTitleOrder = null;
+      })
+      .addCase(deleteTitleOrder.fulfilled, (state, action) => {
+        state.status = "resolved";
+        state.errorDeleteTitleOrder = 200;
+      })
+      .addCase(deleteTitleOrder.rejected, (state, action) => {
+        state.status = "rejected";
+        state.error = action.payload;
+        state.errorDeleteTitleOrder = "что-то пошло не так";
       });
   },
 });
