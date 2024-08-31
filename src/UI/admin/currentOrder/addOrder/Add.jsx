@@ -528,13 +528,24 @@ export default function Add({
           {products[0]?.productTypeId === 4 ? (
             
                   <>
+                  <Box sx={{ weight: '100%', borderBottom: '2px solid #005475', zIndex: 100, height:'40px' ,position:'fixed',top:'0',bottom:'0',left:'0',right:'0',mt:'305px'}}>
                   <IconButton onClick={handleChangeOpenModalProduct}>
                     <img src={plus} alt="плюс" />
                   </IconButton>
+                  </Box>
                   <Grid sx={{ width: '100%', zIndex: 1,overflow: 'auto', mt:'345px', height:'calc(100vh - 400px)', position:'fixed', overflow: 'auto'}}>
                   {Array.isArray(products) &&
                     products.map((product) => (
                       <Box key={product.id}>
+                        <Grid container sx={{ height: '50px', color: 'black', fontFamily: "'Montserrat', sans-serif" }} >
+                                <Grid container item xs={6} sx={{ justifyContent: 'flex-start', alignItems: 'center' }} >
+                                  <Box sx={{ fontSize: '18px', fontWeight: '500', ml: '25px', color: '#005475' }}>
+                                    Название
+                                  </Box>
+                                </Grid>
+
+                                <Grid container item xs={6} sx={{ justifyContent: 'center', alignItems: 'center' }} >
+
                         <Box
                           sx={{
                             fontFamily: "Montserrat",
@@ -545,6 +556,17 @@ export default function Add({
                         >
                           {product.name.split("&quot;").join('"')}
                         </Box>
+                        </Grid></Grid>
+
+
+                        <Grid container sx={{ height: '50px', color: 'black', fontFamily: "'Montserrat', sans-serif" }} >
+                                <Grid container item xs={6} sx={{ justifyContent: 'flex-start', alignItems: 'center' }} >
+                                  <Box sx={{ fontSize: '18px', fontWeight: '500', ml: '25px', color: '#005475' }}>
+                                    Количество
+                                  </Box>
+                                </Grid>
+
+                                <Grid container item xs={6} sx={{ justifyContent: 'center', alignItems: 'center' }} >
 
                         <Box sx={{ textAlign: "center" }}>
                           <TextField
@@ -567,6 +589,17 @@ export default function Add({
                             }
                           />
                         </Box>
+                        </Grid></Grid>
+
+
+                        <Grid container sx={{ height: '50px', color: 'black', fontFamily: "'Montserrat', sans-serif" }} >
+                                <Grid container item xs={6} sx={{ justifyContent: 'flex-start', alignItems: 'center' }} >
+                                  <Box sx={{ fontSize: '18px', fontWeight: '500', ml: '25px', color: '#005475' }}>
+                                    Количество
+                                  </Box>
+                                </Grid>
+
+                                <Grid container item xs={6} sx={{ justifyContent: 'center', alignItems: 'center' }} >
 
                         <Box sx={{ textAlign: "center" }}>
                           {checkProductBooklet[product.id]
@@ -574,18 +607,8 @@ export default function Add({
                             : product.priceAccess}
                           &#x20bd;
                         </Box>
+                        </Grid></Grid>
 
-                        <Box
-                          sx={{
-                            fontFamily: "Montserrat",
-                            fontSize: "16px",
-
-                            color: "black",
-                            textAlign: "center",
-                          }}
-                        >
-                          {sumForOneProduct[product.id]} &#x20bd;
-                        </Box>
                       </Box>
                     ))}
                 </Grid>

@@ -151,10 +151,10 @@ export default function AddSelectProduct({
           placeItems: "center",
           height: "auto",
           position: "absolute",
-          top: "45%",
-          left: "55%",
+          top: "50%",
+          left: "50%",
           transform: "translate(-50%, -50%)",
-          width: "100%",
+          width: "80%",
           paddingTop: "5%",
         }}
       >
@@ -167,7 +167,7 @@ export default function AddSelectProduct({
             gridArea: "box",
             alignSelf: "center",
             position: "absolute",
-            width: "auto",
+            width: "100%",
             overflow: "visible",
           }}
         >
@@ -207,7 +207,7 @@ export default function AddSelectProduct({
               },
             }}
           >
-            <Table stickyHeader sx={{ display: "flex", flexDirection: "row" }}>
+            <Table stickyHeader sx={{ display: "flex", flexDirection: "column" }}>
               <div>
                 <TableHead>
                   <TableRow>
@@ -222,14 +222,13 @@ export default function AddSelectProduct({
                     >
                       Начальные
                     </TextHeader>
-                  </TableRow>
-                </TableHead>
+                  
 
                 <TableBody>
                   {allProducts?.map((item) => {
                     if (item.productTypeId === 1) {
                       return (
-                        <TableRow>
+                        <>
                           <TableCell key={check[item.id]?.checked}>
                             <CustomStyledCheckbox
                               checked={check[item.id]?.checked}
@@ -243,11 +242,13 @@ export default function AddSelectProduct({
                             ></CustomStyledCheckbox>
                             {item.abbreviation}
                           </TableCell>
-                        </TableRow>
+                        </>
                       );
                     }
                   })}
                 </TableBody>
+                </TableRow>
+                </TableHead>
               </div>
 
               <div>
@@ -264,14 +265,13 @@ export default function AddSelectProduct({
                     >
                       Основные
                     </TextHeader>
-                  </TableRow>
-                </TableHead>
+                  
 
                 <TableBody>
                   {allProducts?.map((item) => {
                     if (item.productTypeId === 2) {
                       return (
-                        <TableRow>
+                        <>
                           <TableCell key={check[item.id]?.checked}>
                             <CustomStyledCheckbox
                               checked={check[item.id]?.checked}
@@ -282,11 +282,13 @@ export default function AddSelectProduct({
                             ></CustomStyledCheckbox>
                             {item.abbreviation}
                           </TableCell>
-                        </TableRow>
+                        </>
                       );
                     }
                   })}
                 </TableBody>
+                </TableRow>
+                </TableHead>
               </div>
 
               <div>
@@ -301,16 +303,14 @@ export default function AddSelectProduct({
                         background: "#fff",
                       }}
                     >
-                      Для персонала
+                      Для<span style={{ display: 'block' }}> персонала</span>
                     </TextHeader>
-                  </TableRow>
-                </TableHead>
-
+                 
                 <TableBody>
                   {allProducts?.map((item) => {
                     if (item.productTypeId === 3) {
                       return (
-                        <TableRow>
+                        <>
                           <TableCell key={check[item.id]?.checked}>
                             <CustomStyledCheckbox
                               checked={check[item.id]?.checked}
@@ -321,11 +321,14 @@ export default function AddSelectProduct({
                             ></CustomStyledCheckbox>
                             {item.abbreviation}
                           </TableCell>
-                        </TableRow>
+                        </>
                       );
                     }
                   })}
                 </TableBody>
+                 </TableRow>
+                </TableHead>
+
               </div>
 
               <div>
@@ -342,13 +345,12 @@ export default function AddSelectProduct({
                     >
                       Депозит
                     </TextHeader>
-                  </TableRow>
-                </TableHead>
+                  
                 <TableBody>
                   {allProducts?.map((item) => {
                     if (item.productTypeId === 4) {
                       return (
-                        <TableRow>
+                        <>
                           <TableCell key={check[item.id]?.checked}>
                             <CustomStyledCheckbox
                               checked={check[item.id]?.checked}
@@ -361,11 +363,13 @@ export default function AddSelectProduct({
                             ></CustomStyledCheckbox>
                             {item.abbreviation}
                           </TableCell>
-                        </TableRow>
+                        </>
                       );
                     }
                   })}
                 </TableBody>
+                </TableRow>
+                </TableHead>
               </div>
             </Table>
           </TableContainer>

@@ -3,9 +3,10 @@ import Orders from './Orders'
 import Header from './Header'
 export default function MainInnerOrder() {
   return (
-    <>
-    <Orders></Orders>
+    <>    
     <Header></Header>
+
+    <Orders></Orders>
     </>
   )
 }
