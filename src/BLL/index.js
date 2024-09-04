@@ -10,6 +10,11 @@ import userReducer from './admin/userSlice';
 import priceListReducer from './admin/priceListSlice';
 import postReducer from './postSlice';
 import depositSuperAdminReducer from './superAdmin/depositSuperAdminSlice';
+import statisticsReducer from './superAdmin/statisticsSlice'
+import commissionReducer from './superAdmin/comissionSlice'
+import payeeReducer from './superAdmin/payeeSlice'
+import reviewReducer from './superAdmin/reviewSlice'
+import usersSuperAdminReducer from './superAdmin/usersSuperAdminSlice'
 
 export default configureStore({
   reducer: {
@@ -23,7 +28,12 @@ export default configureStore({
     adminUsers: userReducer,
     adminPriceList: priceListReducer,
     post: postReducer,
+    superAdminStatistics: statisticsReducer,
+    superAdminCommision: commissionReducer,
+    superAdminPayee: payeeReducer,
+    superAdminReview: reviewReducer,
     superAdminDeposits: depositSuperAdminReducer,
+    superAdminUsers: usersSuperAdminReducer,
 
   },
 });

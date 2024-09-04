@@ -24,7 +24,7 @@ const ImageWithDescriptions = () => {
         >{booklet.product.abbreviation}</Box>
         
         <Box sx={{ mt: 1, color: '#999999', m: "0px", pb: "15px", fontFamily: "'Montserrat', sans-serif", fontWeight: '600'}}
-        >{booklet.product.name}</Box>
+        >{booklet.product.name.split("&quot;").join('"')}</Box>
       </Box>
      
     </Grid>

@@ -13,11 +13,11 @@ import { useNavigate } from 'react-router-dom';
 
 const PersonalGallery = () => {
   
-  let ID = 0;
-  let status = false;
+
   const dispatch = useDispatch();
   const { accountId } = useParams();
   const navigate = useNavigate();
+
   const handleNavigation = (link) => { //event
     // event.stopPropagation(); // Предотвращаем всплытие события
     navigate(`${link}`); // Переходим на новую страницу
@@ -26,50 +26,17 @@ const PersonalGallery = () => {
     dispatch(getProducts({ accountId: accountId, typeId: 3 }));
   }, [dispatch,accountId]);
 
-  const post = useSelector((state) => state.post);
   const booklets = useSelector((state) => state.products.productsStart);
 
   useEffect(() => {
     dispatch(getWork(accountId));
   }, [accountId, dispatch]);
   
-  const list = useSelector((state) => state.work?.work || []);
+  const draft = useSelector((state) => String(state.work?.productsInDraft || ""))
+  const productInDraftIds = draft ? draft.split(",") : [];
   
-  // Поиск элемента с status = 'Черновик'
-  const draftElement = list.find(item => item.status === 'Черновик');
+  const filteredBooklets = booklets.filter(booklet => !productInDraftIds.includes(booklet.id));
   
-  // Теперь, если draftElement существует, у него есть id, который вы можете использовать
-  if (draftElement) {
-    // console.log("Найден элемент с status='Черновик', его id:", draftElement.id);
-    ID=draftElement.id;
-    status = true;
-  } else {
-    // console.log("Элемента с status='Черновик' не найдено");
-    ID=0;
-    status=false;
-  }
-  useEffect(() => {
-    if(ID != 0){
-    dispatch(getWorkModal({ accountId: accountId, orderId: draftElement.id }));
-    }
-    else(console.log(" Не найдено"));
-  }, [ID])
-
-  const listModalTitles = useSelector(
-    (state) => state.work.workModalTitles
-  );
-  
-  const productIdsFromListModalTitles = listModalTitles.map(title => title.productId);
-
-  // console.log(productIdsFromListModalTitles);
-  
-
-  
-  // console.log(post);
-  const filteredBooklets = post && Object.keys(post.productIds).length > 0? 
-    booklets.filter(booklet =>!post.productIds.includes(booklet.id)) :
-    (status? booklets.filter(booklet =>!productIdsFromListModalTitles.includes(booklet.id)) : booklets);
-
   return (
     <div className={style.photoGallery}>
       {filteredBooklets.map((booklet) => (

@@ -24,6 +24,14 @@ import MainAddBookletAdmin from './UI/admin/priceList/addBooklet/MainAddBookletA
 import MainAddOrder from './UI/admin/currentOrder/addOrder/MainAddOrder.jsx'
 import MainPriceListAdmin from './UI/admin/priceList/MainPriceListAdmin.jsx';
 import MainDeposit from './UI/admin/deposit/MainDeposit.jsx';
+// superAdmin
+import MainPriceListSuperAdmin from './UI/superAdmin/priceList/MainPriceListSuperAdmin.jsx'
+import MainCurrentOrderSuperAdmin from './UI/superAdmin/currentOrder/MainCurrentOrderSuperAdmin.jsx';
+import MainArchiveSuperAdmin from './UI/superAdmin/archive/MainArchiveSuperAdmin.jsx'
+import MainDepositSuperAdmin from './UI/superAdmin/deposit/MainDepositSuperAdmin.jsx'
+import MainExtendDepositSuperAdmin from './UI/superAdmin/deposit/depositExtended/MainExtendedDepositSuperAdmin.jsx'
+import UsersMainSuperAdmin from './UI/superAdmin/users/UsersMainSuperAdmin.jsx'
+import AddUserMainSuperAdmin from './UI/superAdmin/users/AddUser/AddUserMainSuperAdmin.jsx'
 import { Route, Routes, Navigate } from 'react-router-dom'; // Импортируем NavLink вместо Link
 import { useParams } from 'react-router-dom';
 
@@ -32,12 +40,37 @@ const App = () => {
   return (
     <div className="App">
 
+      {/*--------------------superAdmin----------------------- */}
+      <Routes>
+        <Route path=":accountId/superAdmin" element={<Navigate replace to="currentOrders" />}></Route>
+        <Route path=":accountId/superAdmin/*"
+        element={
+            <Routes>
+              <Route path="currentOrders" element={<MainCurrentOrderSuperAdmin></MainCurrentOrderSuperAdmin>}></Route>
+
+              <Route path="users" element={<UsersMainSuperAdmin></UsersMainSuperAdmin>}></Route>
+
+              <Route path="deposit" element={<MainDepositSuperAdmin></MainDepositSuperAdmin>}></Route>
+
+              <Route path="archive" element={<MainArchiveSuperAdmin></MainArchiveSuperAdmin>} ></Route>
+
+              <Route path="priceLists" element={<MainPriceListSuperAdmin></MainPriceListSuperAdmin>} ></Route>
+            </Routes>
+        }></Route>
+
+        <Route path=":accountId/superAdmin/deposit/:organizationCustomerId" element={<MainExtendDepositSuperAdmin></MainExtendDepositSuperAdmin>}></Route> 
+        <Route path=":accountId/superAdmin/users/addUser" element={<AddUserMainSuperAdmin></AddUserMainSuperAdmin>}></Route> 
+
+        </Routes>
+
        {/* -----------------ADMIN---------------------------  */}
       <Routes>
-        <Route path=":accountId/admin" element={<Navigate replace to="users" />}></Route>
+        <Route path=":accountId/admin" element={<Navigate replace to="currentOrders" />}></Route>
         <Route path=":accountId/admin/*"
         element={
             <Routes>
+              <Route path="currentOrders" element={<MainExtendCurrentOrder></MainExtendCurrentOrder>}></Route>
+
               <Route path="users" element={<UsersMain></UsersMain>}></Route>
 
               <Route path="deposit" element={<MainDeposit></MainDeposit>}></Route>
@@ -45,8 +78,6 @@ const App = () => {
               <Route path="archive" element={<MainArchiveAdmin></MainArchiveAdmin>} ></Route>
 
               <Route path="priceLists" element={<MainPriceListAdmin></MainPriceListAdmin>} ></Route>
-
-              <Route path="currentOrders" element={<MainExtendCurrentOrder></MainExtendCurrentOrder>}></Route>
             </Routes>
         }></Route>
 
@@ -56,6 +87,8 @@ const App = () => {
          <Route path=":accountId/admin/priceLists/AddBooklet" element={<MainAddBookletAdmin></MainAddBookletAdmin>} ></Route>
           <Route path=":accountId/admin/currentOrders/:id" element={<MainInnerOrder></MainInnerOrder>}></Route>
           <Route path=":accountId/admin/currentOrders/addOrder" element={<MainAddOrder></MainAddOrder>}></Route>
+
+
       {/* -----------------USER---------------------------  */}
         <Route path="/*" element={<Main />}></Route>
         <Route path=":accountId" element={<Navigate replace to="new" />}></Route>

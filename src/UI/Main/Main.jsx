@@ -38,7 +38,7 @@ export default function Main() {
         window.location.href = `#/${data.accountId}/admin`;
         break;
         case(3):
-        window.location.href = `#/${data.accountId}/new`;
+        window.location.href = `#/${data.accountId}/superAdmin`;
         break;
         default: window.location.href = `#/`;
       }
@@ -73,7 +73,7 @@ export default function Main() {
             window.location.reload();
             break;
             case(3):
-            window.location.href = `#/${data.accountId}/new`;
+            window.location.href = `#/${data.accountId}/superAdmin`;
             window.location.reload();
             break;
             default: window.location.href = `#/`;
