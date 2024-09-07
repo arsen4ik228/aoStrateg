@@ -37,6 +37,7 @@ const AddDeposit = ({setAddRules}) => {
   const [deposit, setDeposit] = useState();
   const [disabledDeposit, setDisabledDeposit] = useState(false);
   const [disabledSpisanie, setDisabledSpisanie] = useState(false);
+  const [open, isOpen] = useState(true)
 
   const {accountId, organizationCustomerId} = useParams()
 
@@ -86,10 +87,12 @@ const AddDeposit = ({setAddRules}) => {
 
   const closeAddDeposit = () => {
     setAddRules(false);
+    isOpen(false)
 
   };
   return (
-    
+    <>
+      <Modal open={isOpen}>
         <div
           style={{
             display: "grid",
@@ -354,7 +357,8 @@ const AddDeposit = ({setAddRules}) => {
             </Box>
           </Box>
         </div>
-     
+        </Modal>
+    </>
   );
 }
 

@@ -37,7 +37,6 @@ import {
                     <Box sx={{ fontSize: '18px', fontWeight: '500', ml: '25px', mt: '14px', color: '#005475' }}>
                         Академии
                     </Box>
-                    <Box sx={{ fontSize: '14px', fontWeight: '400', ml: '25px' }}></Box>
                 </Box>
             </Grid>
             <Grid container item xs={6} sx={{ flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', fontSize: '16px', fontWeight: '500', overflowY: "auto", }}>

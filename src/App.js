@@ -32,6 +32,15 @@ import MainDepositSuperAdmin from './UI/superAdmin/deposit/MainDepositSuperAdmin
 import MainExtendDepositSuperAdmin from './UI/superAdmin/deposit/depositExtended/MainExtendedDepositSuperAdmin.jsx'
 import UsersMainSuperAdmin from './UI/superAdmin/users/UsersMainSuperAdmin.jsx'
 import AddUserMainSuperAdmin from './UI/superAdmin/users/AddUser/AddUserMainSuperAdmin.jsx'
+import EditUserMainSuperAdmin from './UI/superAdmin/users/EditUser/EditUserMainSuperAdmin.jsx'
+import Reciever from './UI/superAdmin/reciever/Reciever.jsx';
+import Statistics from './UI/superAdmin/statistics/Statistics.jsx';
+import Commission from './UI/superAdmin/commission/Commission.jsx';
+import MainRemeins from './UI/superAdmin/commission/remains/MainRemeins.jsx';
+import Mainrules from './UI/superAdmin/commission/rules/Mainrules.jsx';
+import MainAddOrderSuperAdmi from './UI/superAdmin/currentOrder/addOrder/MainAddOrderSuperAdmi.jsx'
+import MainInnerOrderSuperAdmin from './UI/superAdmin/currentOrder/extendCurrentOrder/innerOrder/MainInnerOrderSuperAdmin.jsx';
+import MainAddBookletSuperAdmin from './UI/superAdmin/priceList/addBooklet/MainAddBookletAdmin.jsx';
 import { Route, Routes, Navigate } from 'react-router-dom'; // Импортируем NavLink вместо Link
 import { useParams } from 'react-router-dom';
 
@@ -55,11 +64,24 @@ const App = () => {
               <Route path="archive" element={<MainArchiveSuperAdmin></MainArchiveSuperAdmin>} ></Route>
 
               <Route path="priceLists" element={<MainPriceListSuperAdmin></MainPriceListSuperAdmin>} ></Route>
+
+              <Route path="payee" element={<Reciever></Reciever>}></Route>
+
+              <Route path="statistics" element={<Statistics></Statistics>}></Route>
+
+              <Route path="comission" element={<Commission></Commission>}></Route>
+              
             </Routes>
         }></Route>
 
+        <Route path=":accountId/superAdmin/currentOrders/addOrder" element={<MainAddOrderSuperAdmi></MainAddOrderSuperAdmi>}></Route>
+        <Route path=":accountId/superAdmin/currentOrders/:id" element={<MainInnerOrderSuperAdmin></MainInnerOrderSuperAdmin>}></Route>
+        <Route path=":accountId/superAdmin/priceLists/AddBooklet" element={<MainAddBookletSuperAdmin></MainAddBookletSuperAdmin>}></Route>
         <Route path=":accountId/superAdmin/deposit/:organizationCustomerId" element={<MainExtendDepositSuperAdmin></MainExtendDepositSuperAdmin>}></Route> 
         <Route path=":accountId/superAdmin/users/addUser" element={<AddUserMainSuperAdmin></AddUserMainSuperAdmin>}></Route> 
+        <Route path=":accountId/superAdmin/users/:accountFocusId" element={<EditUserMainSuperAdmin></EditUserMainSuperAdmin>}></Route> 
+        <Route path=":accountId/superAdmin/comission/:commisionRecieverId" element={<MainRemeins></MainRemeins>}></Route>
+        <Route path=":accountId/superAdmin/comission/rules/:commisionRecieverId" element={<Mainrules></Mainrules>}></Route>
 
         </Routes>
 

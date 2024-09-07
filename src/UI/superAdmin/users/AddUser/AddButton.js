@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { getUser, postAccount } from '../../../../BLL/admin/userSlice';
+import { getUser, postAccount } from '../../../../BLL/superAdmin/usersSuperAdminSlice'
 import '@fontsource/montserrat'
 const AddButton = ({data}) => {
 
@@ -21,6 +21,7 @@ const AddButton = ({data}) => {
               lastName: data.lastName,
               telephoneNumber: data.telephone,
               organizationList: data.selectedOrganizations,
+              roleId:data.role,
             })
           ).then(() => {
             // dispatch(getUser(accountId));
@@ -56,7 +57,7 @@ const AddButton = ({data}) => {
 
         React.useEffect(() => {
             validateForm()
-        }, [data.name, data.lastName, data.telephone, data.selectedOrganizations]);
+        }, [data.name, data.lastName, data.telephone, data.selectedOrganizations, data.role]);
 
     return (
         <Box sx={{ alignItems: 'flex-end' }}>

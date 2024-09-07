@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getEditUser } from '../../../../BLL/admin/userSlice';
+import {getEditUser} from '../../../../BLL/superAdmin/usersSuperAdminSlice'
 const ListOfAcademy = ({ onSelectedOrganizations }) => {
 
     const { accountId, accountFocusId } = useParams();
@@ -19,8 +19,8 @@ const ListOfAcademy = ({ onSelectedOrganizations }) => {
         dispatch(getEditUser({ acccountId: accountId, accountFocusId: accountFocusId }));
     }, [accountId, dispatch])
 
-    const accountData = useSelector((state) => (state.adminUsers?.editAccount || []));
-    const listOfOrganizations = useSelector((state) => (state.adminUsers?.editOrganizations || []));
+    const accountData = useSelector((state) => (state.superAdminUsers?.editAccount || []));
+    const listOfOrganizations = useSelector((state) => (state.superAdminUsers?.editOrganizations || []));
 
     useEffect(() => {
         if (accountData && accountData.organizationList) {
@@ -40,7 +40,7 @@ const ListOfAcademy = ({ onSelectedOrganizations }) => {
     });
 
     return (
-        <Grid container sx={{ height: 'calc(100vh - 320px)', color: 'black', borderBottom: '1px solid #B4B4B4', fontFamily: "'Montserrat', sans-serif", top: 260, left: 0, bottom: 0, right: 0, weight: '100%', overflow: 'auto', position: 'fixed' }} >
+        <Grid container sx={{ height: 'calc(100vh - 370px)', color: 'black', borderBottom: '1px solid #B4B4B4', fontFamily: "'Montserrat', sans-serif", top: 310, left: 0, bottom: 0, right: 0, weight: '100%', overflow: 'auto', position: 'fixed' }} >
 
             <Grid container item xs={6} sx={{ overflowY: "auto", }}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start' }}>

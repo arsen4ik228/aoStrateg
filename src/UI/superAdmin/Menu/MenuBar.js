@@ -16,6 +16,9 @@ const MenuBar = ({ toggleDrawer, drawerOpen }) => {
     { text: 'Прайс-листы', icon: price, path: 'priceLists' },
     { text: 'Пользователи', icon: users, path: 'users' },
     { text: 'Депозиты', icon: deposit, path: 'deposit' },
+    { text: 'Комиссионные', icon: deposit, path: 'comission' },
+    { text: 'Статистика', icon: deposit, path: 'statistics' },
+    { text: 'Получатель', icon: deposit, path: 'payee' },
   ];
   const { accountId } = useParams(); // Извлекаем accountId из URL
 

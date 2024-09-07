@@ -9,15 +9,25 @@ import store from './BLL/index.js'
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
-        // navigator.serviceWorker.register('/PWA/sw.js').then(function(registration) {
-            navigator.serviceWorker.register('/sw.js').then(function(registration) {
-
-            console.log('Service Worker registered with scope: ', registration.scope);
-        }, function(err) {
-            console.log('Service Worker registration failed: ', err);
+        navigator.serviceWorker.getRegistration().then(function(registration) {
+            if (!registration) {
+                // navigator.serviceWorker.register('/PWA/sw.js')
+                navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                        console.log('Service Worker registered with scope: ', registration.scope);
+                    })
+                    .catch(function(err) {
+                        console.log('Service Worker registration failed: ', err);
+                    });
+            } else {
+                console.log('Service Worker already exists');
+            }
+        }).catch(function(error) {
+            console.error('Failed to check Service Worker status:', error);
         });
     });
 }
+
 
 
 

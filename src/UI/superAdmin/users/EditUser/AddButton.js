@@ -5,15 +5,15 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import {  putEditUser } from '../../../../BLL/admin/userSlice';
+import {  putEditUser } from '../../../../BLL/superAdmin/usersSuperAdminSlice';
 import '@fontsource/montserrat'
 const AddButton = ({data}) => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const {accountId, accountFocusId} =useParams()
+    const {accountId, accountFocusId} = useParams()
     const [isFormValid, setIsFormValid] = useState(false);
-
+  console.log(data)
     const onButtonClick = () => {
         dispatch(
             putEditUser({
@@ -23,6 +23,8 @@ const AddButton = ({data}) => {
               lastName: data.lastName,
               telephoneNumber: data.telephone,
               organizationList: data.selectedOrganizations,
+              roleId: data.role,
+              isBlocked: false
             })
           ).then(() => {
             // dispatch(getUser(accountId));
