@@ -13,8 +13,8 @@ export default function Main() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/api/homepage"
-          // "https://24academy.ru/api/homepage"
+          // "http://localhost:3000/api/homepage"
+          "https://24academy.ru/api/homepage"
           
         );
         // Обновляем состояние с полученными данными
@@ -31,13 +31,13 @@ export default function Main() {
   useEffect(() => {
     if(data.isLogged === true){
       switch(data.accountRoleId){
-        case(1):
+        case(3):
         window.location.href = `#/${data.accountId}/new`;
         break;
         case(2):
         window.location.href = `#/${data.accountId}/admin`;
         break;
-        case(3):
+        case(1):
         window.location.href = `#/${data.accountId}/superAdmin`;
         break;
         default: window.location.href = `#/`;
@@ -45,8 +45,8 @@ export default function Main() {
     }
     // Устанавливаем WebSocket соединение после получения данных
     if (data.sessionId) {
-      // const wsUrl = `wss://24academy.ru/ws?sessionId=${data.sessionId}`;
-      const wsUrl = `ws://localhost:3002/?sessionId=${data.sessionId}`
+      const wsUrl = `wss://24academy.ru/ws?sessionId=${data.sessionId}`;
+      // const wsUrl = `ws://localhost:3002/?sessionId=${data.sessionId}`
       const wsConnection = new WebSocket(wsUrl);
 
       setWs(wsConnection); // Сохраняем WebSocket соединение в состоянии
@@ -64,7 +64,7 @@ export default function Main() {
         if (message !== "false") {
           // Если сообщение не равно 'false', выполняем редирект
           switch(data.accountRoleId){
-            case(1):
+            case(3):
             window.location.href = `#/${data.accountId}/new`;
             window.location.reload();
             break;
@@ -72,7 +72,7 @@ export default function Main() {
             window.location.href = `#/${data.accountId}/admin`;
             window.location.reload();
             break;
-            case(3):
+            case(1):
             window.location.href = `#/${data.accountId}/superAdmin`;
             window.location.reload();
             break;
@@ -100,6 +100,55 @@ export default function Main() {
   // const qrUrl = `https://t.me/AcademyStrategBot?start=${data.token}-${data.sessionId}`;
   const qrUrl = `tg://resolve?domain=AcademyStrategBot&start=${encodeURIComponent(data.token)}-${encodeURIComponent(data.sessionId)}`;
  
+// main.js
+
+let deferredPrompt;
+
+// Слушатель события beforeinstallprompt
+window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevents the default mini-infobar or install dialog from appearing on mobile
+    e.preventDefault();
+    // Save the event because you'll need to trigger it later.
+    deferredPrompt = e;
+    // Show your customized install prompt for your PWA
+    showInAppInstallPromotion();
+});
+
+// Функция для отображения кнопки установки
+function showInAppInstallPromotion() {
+    const installButton = document.createElement('button');
+    installButton.textContent = 'Установить приложение';
+    installButton.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9999;
+        background-color: #007AFF;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 16px;
+    `;
+    installButton.onclick = handleInstallClick;
+
+    document.body.appendChild(installButton);
+}
+
+// Обработчик нажатия на кнопку установки
+function handleInstallClick() {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+            console.log('Пользователь согласился установить приложение');
+        } else {
+            console.log('Пользователь отклонил установку приложения');
+        }
+        deferredPrompt = null;
+    });
+}
+
+
 
   return (
 

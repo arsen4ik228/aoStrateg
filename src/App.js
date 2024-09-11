@@ -41,6 +41,8 @@ import Mainrules from './UI/superAdmin/commission/rules/Mainrules.jsx';
 import MainAddOrderSuperAdmi from './UI/superAdmin/currentOrder/addOrder/MainAddOrderSuperAdmi.jsx'
 import MainInnerOrderSuperAdmin from './UI/superAdmin/currentOrder/extendCurrentOrder/innerOrder/MainInnerOrderSuperAdmin.jsx';
 import MainAddBookletSuperAdmin from './UI/superAdmin/priceList/addBooklet/MainAddBookletAdmin.jsx';
+import MainReview from './UI/superAdmin/review/reviewMain/MainReview.jsx';
+import Organizations from './UI/superAdmin/review/Organizations.jsx';
 import { Route, Routes, Navigate } from 'react-router-dom'; // Импортируем NavLink вместо Link
 import { useParams } from 'react-router-dom';
 
@@ -70,7 +72,9 @@ const App = () => {
               <Route path="statistics" element={<Statistics></Statistics>}></Route>
 
               <Route path="comission" element={<Commission></Commission>}></Route>
-              
+
+              <Route path="review" element={<MainReview></MainReview>}></Route>
+
             </Routes>
         }></Route>
 
@@ -82,6 +86,7 @@ const App = () => {
         <Route path=":accountId/superAdmin/users/:accountFocusId" element={<EditUserMainSuperAdmin></EditUserMainSuperAdmin>}></Route> 
         <Route path=":accountId/superAdmin/comission/:commisionRecieverId" element={<MainRemeins></MainRemeins>}></Route>
         <Route path=":accountId/superAdmin/comission/rules/:commisionRecieverId" element={<Mainrules></Mainrules>}></Route>
+        <Route path=":accountId/superAdmin/review/:organizationCustomerId" element={<Organizations></Organizations>}></Route>
 
         </Routes>
 
@@ -91,7 +96,7 @@ const App = () => {
         <Route path=":accountId/admin/*"
         element={
             <Routes>
-              <Route path="currentOrders" element={<MainExtendCurrentOrder></MainExtendCurrentOrder>}></Route>
+              <Route path="currentOrders" element={<MainCurrentOrder></MainCurrentOrder>}></Route>
 
               <Route path="users" element={<UsersMain></UsersMain>}></Route>
 

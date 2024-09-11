@@ -1,18 +1,18 @@
 import React from 'react'
+import {useEffect} from "react";
 import { useSelector } from 'react-redux';
 import { Grid, Box, Checkbox, Select, MenuItem, TextField } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { getNewOrder } from '../../../../BLL/admin/orderSlice'
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
 const AddOrder = () => {
 
   const dispatch = useDispatch()
-  const accountId = useParams();
-  React.useEffect(() => {
+  const {accountId} = useParams();
+  useEffect(() => {
     dispatch(getNewOrder(accountId))
-
-  }, [])
+  }, [accountId, dispatch])
 
   const allProducts = useSelector((state) => state.adminOrder?.allProducts);
   const allOrganizations = useSelector(

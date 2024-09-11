@@ -11,8 +11,8 @@ if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
         navigator.serviceWorker.getRegistration().then(function(registration) {
             if (!registration) {
-                // navigator.serviceWorker.register('/PWA/sw.js')
-                navigator.serviceWorker.register('/sw.js')
+                navigator.serviceWorker.register('/PWA/sw.js')
+                // navigator.serviceWorker.register('/sw.js')
                     .then(function(registration) {
                         console.log('Service Worker registered with scope: ', registration.scope);
                     })
@@ -27,7 +27,6 @@ if ('serviceWorker' in navigator) {
         });
     });
 }
-
 
 
 

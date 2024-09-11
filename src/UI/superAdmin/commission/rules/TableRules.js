@@ -32,7 +32,8 @@ import {
     deleteRule,
     incrementDummyKey,
     putAccrualRule,
-    getRules
+    getRules,
+    getComission
 } from "../../../../BLL/superAdmin/comissionSlice.js"
 
 export const TableRules = () => {
@@ -55,10 +56,11 @@ export const TableRules = () => {
 
     // const [isSave, setIsSave] = useState({});
 
-    
+
 
     const rules = useSelector((state) => state.superAdminCommision?.rules || []);
-    console.log(rules)
+    // const commision = useSelector((state) => state.superAdminCommision?.commision || []);
+    // console.log(commision)
     const errorPutAccrualRule = useSelector(
         (state) => state.superAdminCommision?.errorPutAccrualRule
     );
@@ -68,9 +70,13 @@ export const TableRules = () => {
     const allProducts = useSelector(
         (state) => state.superAdminCommision?.allProducts || []
     );
-useEffect(()=>{
-        dispatch(getRules({accountId: accountId, commisionRecieverId: commisionRecieverId}))
-    },[accountId,commisionRecieverId, dummyKey])
+    useEffect(() => {
+        dispatch(getRules({ accountId: accountId, commisionRecieverId: commisionRecieverId }))
+    }, [accountId, commisionRecieverId, dummyKey])
+
+    // useEffect(()=>{
+    //     dispatch(getComission({accountId: accountId}))
+    // },[accountId,])
 
     const [snackbarOpenDeleteRule, setSnackbarOpenDeleteRule] = useState(false);
     const [snackbarOpenPutAccrualRule, setSnackbarOpenPutAccrualRule] =
@@ -104,7 +110,7 @@ useEffect(()=>{
             })
         ).then(
             () => {
-                setDummyKey(prevState=> prevState+1)
+                setDummyKey(prevState => prevState + 1)
                 dispatch(incrementDummyKey());
                 setSnackbarOpenDeleteRule(true);
                 setLoadingDelete(false);
@@ -393,7 +399,7 @@ useEffect(()=>{
                 setNewProducts([]);
                 setLoadingSave(false);
                 setSnackbarOpenPutAccrualRule(true);
-                
+
             },
             () => {
                 setSnackbarOpenPutAccrualRule(true);
@@ -412,172 +418,417 @@ useEffect(()=>{
         setNewProducts([]);
     };
     return (
-        <>
-            <Grid sx={{ position: 'fixed', top: 65, left: 0, bottom: 0, right: 0, width: '100%', zIndex: 1000, overflow:'auto' }}>
-            <Grid container sx={{ borderBottom: '2px solid #005475', height: '40px',justifyContent:'center' }}>
-                    <Box sx={{fontFamily: "Montserrat",
-                              fontSize: "16px",
-                              fontWeight:'400', }}
-                              onClick={() => addProducts()}>
-                      Добавить правило
-                      <IconButton>
-                        <img src={plus} alt="плюс" />
-                      </IconButton>
+        
+            <>
+                <Grid sx={{ position: 'fixed', top: 65, left: 0, bottom: 0, right: 0, width: '100%', zIndex: 1000, overflow: 'auto', height:'85%' }}>
+                    <Grid container sx={{ borderBottom: '2px solid #005475', height: '40px', justifyContent: 'center' }}>
+                        <Box sx={{
+                            fontFamily: "Montserrat",
+                            fontSize: "16px",
+                            fontWeight: '400',
+                        }}
+                            onClick={() => addProducts()}>
+                            Добавить правило
+                            <IconButton>
+                                <img src={plus} alt="плюс" />
+                            </IconButton>
 
-                    </Box>
-                    </Grid>
-            {rules?.map((element, index) => (
-                <>
-                <Grid container sx={{ height: '50px', color: 'black', fontFamily: "'Montserrat', sans-serif" }} >
-
-                    <Grid container element xs={6} sx={{ justifyContent: 'flex-start', alignItems: 'center' }} >
-                        <Box sx={{ fontSize: '18px', fontWeight: '500', ml: '25px', color: '#005475' }}>
-                            Группа товаров
                         </Box>
                     </Grid>
+                    {rules?.map((element, index) => (
+                        <>
+                            <Grid container sx={{ height: '50px', color: 'black', fontFamily: "'Montserrat', sans-serif" }} >
 
-                    <Grid container element xs={6} sx={{ justifyContent: 'center', alignItems: 'center' }} >
-                        <Box sx={{ fontSize: '16px', justifyContent: 'center', alignItems: 'center', mt: '10px' }}>
-                            <Select
-                                variant="standard"
-                                sx={{
-                                    fontFamily: "Montserrat",
-                                    fontSize: "16px",
+                                <Grid container element xs={6} sx={{ justifyContent: 'flex-start', alignItems: 'center' }} >
+                                    <Box sx={{ fontSize: '18px', fontWeight: '500', ml: '25px', color: '#005475' }}>
+                                        Группа товаров
+                                    </Box>
+                                </Grid>
 
-                                    color: "black",
-                                    textAlign: "center",
-                                    cursor: "pointer",
-                                    width: "150px",
-                                }}
-                                value={
-                                    groupProducts[element.id] === undefined
-                                        ? element.productTypeId
-                                        : groupProducts[element.id]
-                                }
-                                onChange={(e) =>
-                                    handleChangeGroupProducts(e, element.id)
-                                }
-                                disabled={
-                                    productsAutocomplete[element.id] ===
-                                        undefined
-                                        ? element.productId
-                                            ? true
-                                            : false
-                                        : disabledProductTypeId[element.id]
-                                }
-                            >
-                                <MenuItem
-                                    value="null"
-                                    sx={{
-                                        fontFamily: "Montserrat",
-                                        fontSize: "16px",
+                                <Grid container element xs={6} sx={{ justifyContent: 'center', alignItems: 'center' }} >
+                                    <Box sx={{ fontSize: '16px', justifyContent: 'center', alignItems: 'center', mt: '10px' }}>
+                                        <Select
+                                            variant="standard"
+                                            sx={{
+                                                fontFamily: "Montserrat",
+                                                fontSize: "16px",
 
-                                        color: "#999999",
-                                        textAlign: "center",
-                                        cursor: "pointer",
-                                    }}
-                                >
-                                    —
-                                </MenuItem>
-                                <MenuItem
-                                    value={1}
-                                    sx={{
-                                        fontFamily: "Montserrat",
-                                        fontSize: "16px",
+                                                color: "black",
+                                                textAlign: "center",
+                                                cursor: "pointer",
+                                                width: "150px",
+                                            }}
+                                            value={
+                                                groupProducts[element.id] === undefined
+                                                    ? element.productTypeId
+                                                    : groupProducts[element.id]
+                                            }
+                                            onChange={(e) =>
+                                                handleChangeGroupProducts(e, element.id)
+                                            }
+                                            disabled={
+                                                productsAutocomplete[element.id] ===
+                                                    undefined
+                                                    ? element.productId
+                                                        ? true
+                                                        : false
+                                                    : disabledProductTypeId[element.id]
+                                            }
+                                        >
+                                            <MenuItem
+                                                value="null"
+                                                sx={{
+                                                    fontFamily: "Montserrat",
+                                                    fontSize: "16px",
 
-                                        color: "#999999",
-                                        textAlign: "center",
-                                        cursor: "pointer",
-                                    }}
-                                >
-                                    Начальные
-                                </MenuItem>
-                                <MenuItem
-                                    value={2}
-                                    sx={{
-                                        fontFamily: "Montserrat",
-                                        fontSize: "16px",
+                                                    color: "#999999",
+                                                    textAlign: "center",
+                                                    cursor: "pointer",
+                                                }}
+                                            >
+                                                —
+                                            </MenuItem>
+                                            <MenuItem
+                                                value={1}
+                                                sx={{
+                                                    fontFamily: "Montserrat",
+                                                    fontSize: "16px",
 
-                                        color: "#999999",
-                                        textAlign: "center",
-                                        cursor: "pointer",
-                                    }}
-                                >
-                                    Основные
-                                </MenuItem>
-                                <MenuItem
-                                    value={3}
-                                    sx={{
-                                        fontFamily: "Montserrat",
-                                        fontSize: "16px",
+                                                    color: "#999999",
+                                                    textAlign: "center",
+                                                    cursor: "pointer",
+                                                }}
+                                            >
+                                                Начальные
+                                            </MenuItem>
+                                            <MenuItem
+                                                value={2}
+                                                sx={{
+                                                    fontFamily: "Montserrat",
+                                                    fontSize: "16px",
 
-                                        color: "#999999",
-                                        textAlign: "center",
-                                        cursor: "pointer",
-                                    }}
-                                >
-                                    Для персонала
-                                </MenuItem>
-                            </Select>
-                        </Box>
-                    </Grid>
-                </Grid>
+                                                    color: "#999999",
+                                                    textAlign: "center",
+                                                    cursor: "pointer",
+                                                }}
+                                            >
+                                                Основные
+                                            </MenuItem>
+                                            <MenuItem
+                                                value={3}
+                                                sx={{
+                                                    fontFamily: "Montserrat",
+                                                    fontSize: "16px",
 
-                <Grid container sx={{ height: '50px', color: 'black', fontFamily: "'Montserrat', sans-serif" }} >
+                                                    color: "#999999",
+                                                    textAlign: "center",
+                                                    cursor: "pointer",
+                                                }}
+                                            >
+                                                Для персонала
+                                            </MenuItem>
+                                        </Select>
+                                    </Box>
+                                </Grid>
+                            </Grid>
 
-                    <Grid container element xs={6} sx={{ justifyContent: 'flex-start', alignItems: 'center' }} >
-                        <Box sx={{ fontSize: '18px', fontWeight: '500', ml: '25px', color: '#005475' }}>
-                            Товары
-                        </Box>
-                    </Grid>
+                            <Grid container sx={{ height: '50px', color: 'black', fontFamily: "'Montserrat', sans-serif" }} >
 
-                    <Grid container element xs={6} sx={{ justifyContent: 'center', alignItems: 'center' }} >
-                        <Box>
-                            <Select
-                                variant="standard"
-                                sx={{
-                                    fontFamily: "Montserrat",
-                                    fontSize: "16px",
+                                <Grid container element xs={6} sx={{ justifyContent: 'flex-start', alignItems: 'center' }} >
+                                    <Box sx={{ fontSize: '18px', fontWeight: '500', ml: '25px', color: '#005475' }}>
+                                        Товары
+                                    </Box>
+                                </Grid>
 
-                                    color: "black",
-                                    textAlign: "center",
-                                    cursor: "pointer",
-                                    width: "150px",
-                                }}
-                                value={
-                                    productsAutocomplete[element.id] ===
-                                        undefined
-                                        ? element.productId
-                                        : productsAutocomplete[element.id]
-                                }
-                                onChange={(e) =>
-                                    handleChangeProducts(e, element.id)
-                                }
-                                disabled={
-                                    groupProducts[element.id] === undefined
-                                        ? element.productTypeId
-                                            ? true
-                                            : false
-                                        : disabledProductId[element.id]
-                                }
-                            >
-                                <MenuItem
-                                    value="null"
-                                    sx={{
-                                        fontFamily: "Montserrat",
-                                        fontSize: "16px",
+                                <Grid container element xs={6} sx={{ justifyContent: 'center', alignItems: 'center' }} >
+                                    <Box>
+                                        <Select
+                                            variant="standard"
+                                            sx={{
+                                                fontFamily: "Montserrat",
+                                                fontSize: "16px",
 
-                                        color: "#999999",
-                                        textAlign: "center",
-                                        cursor: "pointer",
-                                    }}
-                                >
-                                    —
-                                </MenuItem>
-                                {allProducts.map((element) => {
-                                    return (
-                                        <MenuItem
-                                            value={element.id}
+                                                color: "black",
+                                                textAlign: "center",
+                                                cursor: "pointer",
+                                                width: "150px",
+                                            }}
+                                            value={
+                                                productsAutocomplete[element.id] ===
+                                                    undefined
+                                                    ? element.productId
+                                                    : productsAutocomplete[element.id]
+                                            }
+                                            onChange={(e) =>
+                                                handleChangeProducts(e, element.id)
+                                            }
+                                            disabled={
+                                                groupProducts[element.id] === undefined
+                                                    ? element.productTypeId
+                                                        ? true
+                                                        : false
+                                                    : disabledProductId[element.id]
+                                            }
+                                        >
+                                            <MenuItem
+                                                value="null"
+                                                sx={{
+                                                    fontFamily: "Montserrat",
+                                                    fontSize: "16px",
+
+                                                    color: "#999999",
+                                                    textAlign: "center",
+                                                    cursor: "pointer",
+                                                }}
+                                            >
+                                                —
+                                            </MenuItem>
+                                            {allProducts.map((element) => {
+                                                return (
+                                                    <MenuItem
+                                                        value={element.id}
+                                                        sx={{
+                                                            fontFamily: "Montserrat",
+                                                            fontSize: "16px",
+
+                                                            color: "#999999",
+                                                            textAlign: "center",
+                                                            cursor: "pointer",
+                                                        }}
+                                                    >
+                                                        {element.abbreviation}
+                                                    </MenuItem>
+                                                );
+                                            })}
+                                        </Select>
+                                    </Box>
+                                </Grid>
+                            </Grid>
+
+
+                            <Grid container sx={{ height: '50px', color: 'black', fontFamily: "'Montserrat', sans-serif" }} >
+
+                                <Grid container element xs={6} sx={{ justifyContent: 'flex-start', alignItems: 'center' }} >
+                                    <Box sx={{ fontSize: '18px', fontWeight: '500', ml: '25px', color: '#005475' }}>
+                                        Поколения
+                                    </Box>
+
+                                </Grid>
+                                <Grid container element xs={6} sx={{ justifyContent: 'center', alignItems: 'center' }} >
+                                    <Box sx={{ textAlign: "center" }}>
+                                        <Select
+                                            variant="standard"
+                                            sx={{
+                                                fontFamily: "Montserrat",
+                                                fontSize: "16px",
+
+                                                color: "black",
+                                                textAlign: "center",
+                                                cursor: "pointer",
+                                                width: "150px",
+                                            }}
+                                            disabled={
+                                                groupProducts[element.id] === undefined
+                                                    ? element.productTypeId
+                                                        ? true
+                                                        : false
+                                                    : disabledProductId[element.id]
+                                            }
+                                            value={
+                                                selectedGeneration[element.id] === "null"
+                                                    ? null
+                                                    : selectedGeneration[element.id] ||
+                                                    element.generation
+                                            }
+                                            onChange={(e) =>
+                                                handleChangeGeneration(e, element.id)
+                                            }
+                                        >
+                                            <MenuItem
+                                                value={null}
+                                                sx={{
+                                                    fontFamily: "Montserrat",
+                                                    fontSize: "16px",
+
+                                                    color: "#999999",
+                                                    textAlign: "center",
+                                                    cursor: "pointer",
+                                                }}
+                                            >
+                                                —
+                                            </MenuItem>
+
+                                            <MenuItem
+                                                value="Первое поколение"
+                                                sx={{
+                                                    fontFamily: "Montserrat",
+                                                    fontSize: "16px",
+
+                                                    color: "#999999",
+                                                    textAlign: "center",
+                                                    cursor: "pointer",
+                                                }}
+                                            >
+                                                Первое поколение
+                                            </MenuItem>
+                                            <MenuItem
+                                                value="Второе поколение"
+                                                sx={{
+                                                    fontFamily: "Montserrat",
+                                                    fontSize: "16px",
+
+                                                    color: "#999999",
+                                                    textAlign: "center",
+                                                    cursor: "pointer",
+                                                }}
+                                            >
+                                                Второе поколение
+                                            </MenuItem>
+                                        </Select>
+                                    </Box>
+                                </Grid>
+                            </Grid>
+
+                            <Grid container sx={{ height: '50px', color: 'black', fontFamily: "'Montserrat', sans-serif" }} >
+
+                                <Grid container element xs={6} sx={{ justifyContent: 'flex-start', alignItems: 'center' }} >
+                                    <Box sx={{ fontSize: '18px', fontWeight: '500', ml: '25px', color: '#005475' }}>
+                                        Доступ
+                                    </Box>
+                                </Grid>
+
+                                <Grid container element xs={6} sx={{ justifyContent: 'center', alignItems: 'center' }} >
+                                    <Box>
+                                        <Select
+                                            variant="standard"
+                                            sx={{
+                                                fontFamily: "Montserrat",
+                                                fontSize: "16px",
+
+                                                color: "black",
+                                                textAlign: "center",
+                                                cursor: "pointer",
+                                                width: "150px",
+                                            }}
+                                            disabled={
+                                                groupProducts[element.id] === undefined
+                                                    ? element.productTypeId
+                                                        ? true
+                                                        : false
+                                                    : disabledProductId[element.id]
+                                            }
+                                            value={
+                                                selectedAccessType[element.id] === "null"
+                                                    ? null
+                                                    : selectedAccessType[element.id] ||
+                                                    element.accessType
+                                            }
+                                            onChange={(e) =>
+                                                handleChangeAccessType(e, element.id)
+                                            }
+                                        >
+                                            <MenuItem
+                                                value={null}
+                                                sx={{
+                                                    fontFamily: "Montserrat",
+                                                    fontSize: "16px",
+
+                                                    color: "#999999",
+                                                    textAlign: "center",
+                                                    cursor: "pointer",
+                                                }}
+                                            >
+                                                —
+                                            </MenuItem>
+                                            <MenuItem
+                                                value="Электронный"
+                                                sx={{
+                                                    fontFamily: "Montserrat",
+                                                    fontSize: "16px",
+
+                                                    color: "#999999",
+                                                    textAlign: "center",
+                                                    cursor: "pointer",
+                                                }}
+                                            >
+                                                Электронный
+                                            </MenuItem>
+                                            <MenuItem
+                                                value="Бумажный"
+                                                sx={{
+                                                    fontFamily: "Montserrat",
+                                                    fontSize: "16px",
+
+                                                    color: "#999999",
+                                                    textAlign: "center",
+                                                    cursor: "pointer",
+                                                }}
+                                            >
+                                                Бумажный
+                                            </MenuItem>
+                                        </Select>
+                                    </Box>
+                                </Grid>
+                            </Grid>
+
+                            <Grid container sx={{ height: '50px', color: 'black', fontFamily: "'Montserrat', sans-serif" }} >
+
+                                <Grid container element xs={6} sx={{ justifyContent: 'flex-start', alignItems: 'center' }} >
+                                    <Box sx={{ fontSize: '18px', fontWeight: '500', ml: '25px', color: '#005475' }}>
+                                        Начисление
+                                    </Box>
+                                </Grid>
+
+                                <Grid container element xs={6} sx={{ justifyContent: 'center', alignItems: 'center' }} >
+                                    <Box>
+                                        <TextField
+                                            variant="standard"
+                                            sx={{
+                                                width: "80px",
+                                            }}
+                                            value={
+                                                accrual[element.id] ||
+                                                (isFieldCleared[element.id]
+                                                    ? ""
+                                                    : element.commision)
+                                            }
+                                            onChange={(e) =>
+                                                handleChangeAccrual(e, element.id)
+                                            }
+                                        />
+                                    </Box>
+                                </Grid>
+                            </Grid>
+
+                            <Grid container sx={{ justifyContent: 'center', alignItems: 'center', borderBottom: '3px solid #005475', fontFamily: "'Montserrat', sans-serif" }}>
+                                <Box sx={{ color: '#005475' }} onClick={() =>
+                                    deleteOld(
+                                        element.commisionRecieverId,
+                                        element.id
+                                    )}>
+                                    Удалить
+                                    <IconButton>
+                                        <img src={deleteGrey} alt="удалить" />
+                                    </IconButton>
+                                </Box>
+                            </Grid>
+                        </>
+                    ))}
+
+                    {newProducts?.map((item, index) => (
+                        <>
+                            <Grid container sx={{ height: '50px', color: 'black', fontFamily: "'Montserrat', sans-serif" }} >
+
+                                <Grid container element xs={6} sx={{ justifyContent: 'flex-start', alignItems: 'center' }} >
+                                    <Box sx={{ fontSize: '18px', fontWeight: '500', ml: '25px', color: '#005475' }}>
+                                        Группа товаров
+                                    </Box>
+                                </Grid>
+
+                                <Grid container element xs={6} sx={{ justifyContent: 'center', alignItems: 'center' }} >
+                                    <Box sx={{ fontSize: '16px', justifyContent: 'center', alignItems: 'center', mt: '10px' }}>
+                                        <Select
+                                            variant="standard"
                                             sx={{
                                                 fontFamily: "Montserrat",
                                                 fontSize: "16px",
@@ -585,543 +836,355 @@ useEffect(()=>{
                                                 color: "#999999",
                                                 textAlign: "center",
                                                 cursor: "pointer",
+                                                width: "150px",
                                             }}
+                                            value={groupProducts[item.id]}
+                                            onChange={(e) =>
+                                                handleChangeGroupProducts(e, item.id)
+                                            }
+                                            disabled={disabledProductTypeIdNew[item.id]}
                                         >
-                                            {element.abbreviation}
-                                        </MenuItem>
-                                    );
-                                })}
-                            </Select>
-                        </Box>
-                    </Grid>
-                </Grid>
+                                            <MenuItem
+                                                value="null"
+                                                sx={{
+                                                    fontFamily: "Montserrat",
+                                                    fontSize: "16px",
 
+                                                    color: "#999999",
+                                                    textAlign: "center",
+                                                    cursor: "pointer",
+                                                }}
+                                            >
+                                                —
+                                            </MenuItem>
+                                            <MenuItem
+                                                value={1}
+                                                sx={{
+                                                    fontFamily: "Montserrat",
+                                                    fontSize: "16px",
 
-                <Grid container sx={{ height: '50px', color: 'black',  fontFamily: "'Montserrat', sans-serif" }} >
+                                                    color: "#999999",
+                                                    textAlign: "center",
+                                                    cursor: "pointer",
+                                                }}
+                                            >
+                                                Начальные
+                                            </MenuItem>
+                                            <MenuItem
+                                                value={2}
+                                                sx={{
+                                                    fontFamily: "Montserrat",
+                                                    fontSize: "16px",
 
-                    <Grid container element xs={6} sx={{ justifyContent: 'flex-start', alignItems: 'center' }} >
-                        <Box sx={{ fontSize: '18px', fontWeight: '500', ml: '25px', color: '#005475' }}>
-                            Поколения
-                        </Box>
+                                                    color: "#999999",
+                                                    textAlign: "center",
+                                                    cursor: "pointer",
+                                                }}
+                                            >
+                                                Основные
+                                            </MenuItem>
+                                            <MenuItem
+                                                value={3}
+                                                sx={{
+                                                    fontFamily: "Montserrat",
+                                                    fontSize: "16px",
 
-                    </Grid>
-                    <Grid container element xs={6} sx={{ justifyContent: 'center', alignItems: 'center' }} >
-                        <Box sx={{ textAlign: "center" }}>
-                            <Select
-                                variant="standard"
-                                sx={{
-                                    fontFamily: "Montserrat",
-                                    fontSize: "16px",
-
-                                    color: "black",
-                                    textAlign: "center",
-                                    cursor: "pointer",
-                                    width: "150px",
-                                }}
-                                disabled={
-                                    groupProducts[element.id] === undefined
-                                        ? element.productTypeId
-                                            ? true
-                                            : false
-                                        : disabledProductId[element.id]
-                                }
-                                value={
-                                    selectedGeneration[element.id] === "null"
-                                        ? null
-                                        : selectedGeneration[element.id] ||
-                                        element.generation
-                                }
-                                onChange={(e) =>
-                                    handleChangeGeneration(e, element.id)
-                                }
-                            >
-                                <MenuItem
-                                    value={null}
-                                    sx={{
-                                        fontFamily: "Montserrat",
-                                        fontSize: "16px",
-
-                                        color: "#999999",
-                                        textAlign: "center",
-                                        cursor: "pointer",
-                                    }}
-                                >
-                                    —
-                                </MenuItem>
-
-                                <MenuItem
-                                    value="Первое поколение"
-                                    sx={{
-                                        fontFamily: "Montserrat",
-                                        fontSize: "16px",
-
-                                        color: "#999999",
-                                        textAlign: "center",
-                                        cursor: "pointer",
-                                    }}
-                                >
-                                    Первое поколение
-                                </MenuItem>
-                                <MenuItem
-                                    value="Второе поколение"
-                                    sx={{
-                                        fontFamily: "Montserrat",
-                                        fontSize: "16px",
-
-                                        color: "#999999",
-                                        textAlign: "center",
-                                        cursor: "pointer",
-                                    }}
-                                >
-                                    Второе поколение
-                                </MenuItem>
-                            </Select>
-                        </Box>
-                    </Grid>
-                </Grid>
-
-                <Grid container sx={{ height: '50px', color: 'black',  fontFamily: "'Montserrat', sans-serif" }} >
-
-                    <Grid container element xs={6} sx={{ justifyContent: 'flex-start', alignItems: 'center' }} >
-                        <Box sx={{ fontSize: '18px', fontWeight: '500', ml: '25px', color: '#005475' }}>
-                            Доступ
-                        </Box>
-                    </Grid>
-
-                    <Grid container element xs={6} sx={{ justifyContent: 'center', alignItems: 'center' }} >
-                        <Box>
-                            <Select
-                                variant="standard"
-                                sx={{
-                                    fontFamily: "Montserrat",
-                                    fontSize: "16px",
-
-                                    color: "black",
-                                    textAlign: "center",
-                                    cursor: "pointer",
-                                    width: "150px",
-                                }}
-                                disabled={
-                                    groupProducts[element.id] === undefined
-                                        ? element.productTypeId
-                                            ? true
-                                            : false
-                                        : disabledProductId[element.id]
-                                }
-                                value={
-                                    selectedAccessType[element.id] === "null"
-                                        ? null
-                                        : selectedAccessType[element.id] ||
-                                        element.accessType
-                                }
-                                onChange={(e) =>
-                                    handleChangeAccessType(e, element.id)
-                                }
-                            >
-                                <MenuItem
-                                    value={null}
-                                    sx={{
-                                        fontFamily: "Montserrat",
-                                        fontSize: "16px",
-
-                                        color: "#999999",
-                                        textAlign: "center",
-                                        cursor: "pointer",
-                                    }}
-                                >
-                                    —
-                                </MenuItem>
-                                <MenuItem
-                                    value="Электронный"
-                                    sx={{
-                                        fontFamily: "Montserrat",
-                                        fontSize: "16px",
-
-                                        color: "#999999",
-                                        textAlign: "center",
-                                        cursor: "pointer",
-                                    }}
-                                >
-                                    Электронный
-                                </MenuItem>
-                                <MenuItem
-                                    value="Бумажный"
-                                    sx={{
-                                        fontFamily: "Montserrat",
-                                        fontSize: "16px",
-
-                                        color: "#999999",
-                                        textAlign: "center",
-                                        cursor: "pointer",
-                                    }}
-                                >
-                                    Бумажный
-                                </MenuItem>
-                            </Select>
-                        </Box>
-                    </Grid>
-                </Grid>
-
-                <Grid container sx={{ height: '50px', color: 'black', fontFamily: "'Montserrat', sans-serif" }} >
-
-                    <Grid container element xs={6} sx={{ justifyContent: 'flex-start', alignItems: 'center' }} >
-                        <Box sx={{ fontSize: '18px', fontWeight: '500', ml: '25px', color: '#005475' }}>
-                            Начисление
-                        </Box>
-                    </Grid>
-
-                    <Grid container element xs={6} sx={{ justifyContent: 'center', alignItems: 'center' }} >
-                        <Box>
-                            <TextField
-                                variant="standard"
-                                sx={{
-                                    width: "80px",
-                                }}
-                                value={
-                                    accrual[element.id] ||
-                                    (isFieldCleared[element.id]
-                                        ? ""
-                                        : element.commision)
-                                }
-                                onChange={(e) =>
-                                    handleChangeAccrual(e, element.id)
-                                }
-                            />
-                        </Box>
-                    </Grid>
-                </Grid>
-
-                <Grid container sx={{ justifyContent: 'center', alignItems: 'center', borderBottom: '3px solid #005475', fontFamily: "'Montserrat', sans-serif" }}>
-                                  <Box sx={{ color: '#005475' }} onClick={() =>
-                                     deleteOld(
-                                        element.commisionRecieverId,
-                                        element.id
-                                      )}>
-                                    Удалить
-                                    <IconButton>
-                                      <img src={deleteGrey} alt="удалить" />
-                                    </IconButton>
-                                  </Box>
+                                                    color: "#999999",
+                                                    textAlign: "center",
+                                                    cursor: "pointer",
+                                                }}
+                                            >
+                                                Для персонала
+                                            </MenuItem>
+                                        </Select>
+                                    </Box>
                                 </Grid>
-                </>
-            ))}
+                            </Grid>
 
-        {newProducts?.map((item, index) => (
-                <>
-                <Grid container sx={{ height: '50px', color: 'black', fontFamily: "'Montserrat', sans-serif" }} >
+                            <Grid container sx={{ height: '50px', color: 'black', fontFamily: "'Montserrat', sans-serif" }} >
 
-                    <Grid container element xs={6} sx={{ justifyContent: 'flex-start', alignItems: 'center' }} >
-                        <Box sx={{ fontSize: '18px', fontWeight: '500', ml: '25px', color: '#005475' }}>
-                            Группа товаров
-                        </Box>
-                    </Grid>
+                                <Grid container element xs={6} sx={{ justifyContent: 'flex-start', alignItems: 'center' }} >
+                                    <Box sx={{ fontSize: '18px', fontWeight: '500', ml: '25px', color: '#005475' }}>
+                                        Товары
+                                    </Box>
+                                </Grid>
 
-                    <Grid container element xs={6} sx={{ justifyContent: 'center', alignItems: 'center' }} >
-                        <Box sx={{ fontSize: '16px', justifyContent: 'center', alignItems: 'center', mt: '10px' }}>
-                        <Select
-                                    variant="standard"
-                                    sx={{
-                                      fontFamily: "Montserrat",
-                                      fontSize: "16px",
-
-                                      color: "#999999",
-                                      textAlign: "center",
-                                      cursor: "pointer",
-                                      width: "150px",
-                                    }}
-                                    value={groupProducts[item.id]}
-                                    onChange={(e) =>
-                                      handleChangeGroupProducts(e, item.id)
-                                    }
-                                    disabled={disabledProductTypeIdNew[item.id]}
-                                  >
-                                    <MenuItem
-                                      value="null"
-                                      sx={{
-                                        fontFamily: "Montserrat",
-                                        fontSize: "16px",
-
-                                        color: "#999999",
-                                        textAlign: "center",
-                                        cursor: "pointer",
-                                      }}
-                                    >
-                                      —
-                                    </MenuItem>
-                                    <MenuItem
-                                      value={1}
-                                      sx={{
-                                        fontFamily: "Montserrat",
-                                        fontSize: "16px",
-
-                                        color: "#999999",
-                                        textAlign: "center",
-                                        cursor: "pointer",
-                                      }}
-                                    >
-                                      Начальные
-                                    </MenuItem>
-                                    <MenuItem
-                                      value={2}
-                                      sx={{
-                                        fontFamily: "Montserrat",
-                                        fontSize: "16px",
-
-                                        color: "#999999",
-                                        textAlign: "center",
-                                        cursor: "pointer",
-                                      }}
-                                    >
-                                      Основные
-                                    </MenuItem>
-                                    <MenuItem
-                                      value={3}
-                                      sx={{
-                                        fontFamily: "Montserrat",
-                                        fontSize: "16px",
-
-                                        color: "#999999",
-                                        textAlign: "center",
-                                        cursor: "pointer",
-                                      }}
-                                    >
-                                      Для персонала
-                                    </MenuItem>
-                                  </Select>
-                        </Box>
-                    </Grid>
-                </Grid>
-
-                <Grid container sx={{ height: '50px', color: 'black', fontFamily: "'Montserrat', sans-serif" }} >
-
-                    <Grid container element xs={6} sx={{ justifyContent: 'flex-start', alignItems: 'center' }} >
-                        <Box sx={{ fontSize: '18px', fontWeight: '500', ml: '25px', color: '#005475' }}>
-                            Товары
-                        </Box>
-                    </Grid>
-
-                    <Grid container element xs={6} sx={{ justifyContent: 'center', alignItems: 'center' }} >
-                        <Box>
-                        <Autocomplete
-                                    multiple
-                                    options={allProducts}
-                                    disabled={disabledProductIdNew[item.id]}
-                                    disableCloseOnSelect
-                                    onChange={handleChangeNewProducts}
-                                    getOptionLabel={(option) =>
-                                      option.abbreviation
-                                    }
-                                    renderOption={(
-                                      props,
-                                      option,
-                                      { selected }
-                                    ) => (
-                                      <li {...props}>
-                                        <Checkbox
-                                          icon={icon}
-                                          checkedIcon={checkedIcon}
-                                          style={{ marginRight: 8 }}
-                                          checked={selected}
+                                <Grid container element xs={6} sx={{ justifyContent: 'center', alignItems: 'center' }} >
+                                    <Box>
+                                        <Autocomplete
+                                            multiple
+                                            options={allProducts}
+                                            disabled={disabledProductIdNew[item.id]}
+                                            disableCloseOnSelect
+                                            onChange={handleChangeNewProducts}
+                                            getOptionLabel={(option) =>
+                                                option.abbreviation
+                                            }
+                                            renderOption={(
+                                                props,
+                                                option,
+                                                { selected }
+                                            ) => (
+                                                <li {...props}>
+                                                    <Checkbox
+                                                        icon={icon}
+                                                        checkedIcon={checkedIcon}
+                                                        style={{ marginRight: 8 }}
+                                                        checked={selected}
+                                                    />
+                                                    {option.abbreviation}
+                                                </li>
+                                            )}
+                                            style={{ width: 150 }}
+                                            renderInput={(params) => (
+                                                <TextField
+                                                    {...params}
+                                                    label="Товары"
+                                                    variant="standard"
+                                                />
+                                            )}
                                         />
-                                        {option.abbreviation}
-                                      </li>
-                                    )}
-                                    style={{ width: 150 }}
-                                    renderInput={(params) => (
-                                      <TextField
-                                        {...params}
-                                        label="Товары"
-                                        variant="standard"
-                                      />
-                                    )}
-                                  />
-                        </Box>
-                    </Grid>
-                </Grid>
+                                    </Box>
+                                </Grid>
+                            </Grid>
 
 
-                <Grid container sx={{ height: '50px', color: 'black',  fontFamily: "'Montserrat', sans-serif" }} >
+                            <Grid container sx={{ height: '50px', color: 'black', fontFamily: "'Montserrat', sans-serif" }} >
 
-                    <Grid container element xs={6} sx={{ justifyContent: 'flex-start', alignItems: 'center' }} >
-                        <Box sx={{ fontSize: '18px', fontWeight: '500', ml: '25px', color: '#005475' }}>
-                            Поколения
-                        </Box>
+                                <Grid container element xs={6} sx={{ justifyContent: 'flex-start', alignItems: 'center' }} >
+                                    <Box sx={{ fontSize: '18px', fontWeight: '500', ml: '25px', color: '#005475' }}>
+                                        Поколения
+                                    </Box>
 
-                    </Grid>
-                    <Grid container element xs={6} sx={{ justifyContent: 'center', alignItems: 'center' }} >
-                        <Box sx={{ textAlign: "center" }}>
-                        <Select
-                                    variant="standard"
-                                    sx={{
-                                      fontFamily: "Montserrat",
-                                      fontSize: "16px",
+                                </Grid>
+                                <Grid container element xs={6} sx={{ justifyContent: 'center', alignItems: 'center' }} >
+                                    <Box sx={{ textAlign: "center" }}>
+                                        <Select
+                                            variant="standard"
+                                            sx={{
+                                                fontFamily: "Montserrat",
+                                                fontSize: "16px",
 
-                                      color: "#999999",
-                                      textAlign: "center",
-                                      cursor: "pointer",
-                                      width: "150px",
-                                    }}
-                                    value={selectedGeneration[item.id]}
-                                    onChange={(e) =>
-                                      handleChangeGeneration(e, item.id)
-                                    }
-                                    disabled={disabledProductIdNew[item.id]}
-                                  >
-                                    <MenuItem
-                                      value={null}
-                                      sx={{
-                                        fontFamily: "Montserrat",
-                                        fontSize: "16px",
+                                                color: "#999999",
+                                                textAlign: "center",
+                                                cursor: "pointer",
+                                                width: "150px",
+                                            }}
+                                            value={selectedGeneration[item.id]}
+                                            onChange={(e) =>
+                                                handleChangeGeneration(e, item.id)
+                                            }
+                                            disabled={disabledProductIdNew[item.id]}
+                                        >
+                                            <MenuItem
+                                                value={null}
+                                                sx={{
+                                                    fontFamily: "Montserrat",
+                                                    fontSize: "16px",
 
-                                        color: "#999999",
-                                        textAlign: "center",
-                                        cursor: "pointer",
-                                      }}
-                                    >
-                                      —
-                                    </MenuItem>
-                                    <MenuItem
-                                      value="Первое поколение"
-                                      sx={{
-                                        fontFamily: "Montserrat",
-                                        fontSize: "16px",
+                                                    color: "#999999",
+                                                    textAlign: "center",
+                                                    cursor: "pointer",
+                                                }}
+                                            >
+                                                —
+                                            </MenuItem>
+                                            <MenuItem
+                                                value="Первое поколение"
+                                                sx={{
+                                                    fontFamily: "Montserrat",
+                                                    fontSize: "16px",
 
-                                        color: "#999999",
-                                        textAlign: "center",
-                                        cursor: "pointer",
-                                      }}
-                                    >
-                                      Первое поколение
-                                    </MenuItem>
-                                    <MenuItem
-                                      value="Второе поколение"
-                                      sx={{
-                                        fontFamily: "Montserrat",
-                                        fontSize: "16px",
+                                                    color: "#999999",
+                                                    textAlign: "center",
+                                                    cursor: "pointer",
+                                                }}
+                                            >
+                                                Первое поколение
+                                            </MenuItem>
+                                            <MenuItem
+                                                value="Второе поколение"
+                                                sx={{
+                                                    fontFamily: "Montserrat",
+                                                    fontSize: "16px",
 
-                                        color: "#999999",
-                                        textAlign: "center",
-                                        cursor: "pointer",
-                                      }}
-                                    >
-                                      Второе поколение
-                                    </MenuItem>
-                                  </Select>
-                        </Box>
-                    </Grid>
-                </Grid>
+                                                    color: "#999999",
+                                                    textAlign: "center",
+                                                    cursor: "pointer",
+                                                }}
+                                            >
+                                                Второе поколение
+                                            </MenuItem>
+                                        </Select>
+                                    </Box>
+                                </Grid>
+                            </Grid>
 
-                <Grid container sx={{ height: '50px', color: 'black',  fontFamily: "'Montserrat', sans-serif" }} >
+                            <Grid container sx={{ height: '50px', color: 'black', fontFamily: "'Montserrat', sans-serif" }} >
 
-                    <Grid container element xs={6} sx={{ justifyContent: 'flex-start', alignItems: 'center' }} >
-                        <Box sx={{ fontSize: '18px', fontWeight: '500', ml: '25px', color: '#005475' }}>
-                            Доступ
-                        </Box>
-                    </Grid>
+                                <Grid container element xs={6} sx={{ justifyContent: 'flex-start', alignItems: 'center' }} >
+                                    <Box sx={{ fontSize: '18px', fontWeight: '500', ml: '25px', color: '#005475' }}>
+                                        Доступ
+                                    </Box>
+                                </Grid>
 
-                    <Grid container element xs={6} sx={{ justifyContent: 'center', alignItems: 'center' }} >
-                        <Box>
-                        <Select
-                                    variant="standard"
-                                    sx={{
-                                      fontFamily: "Montserrat",
-                                      fontSize: "16px",
+                                <Grid container element xs={6} sx={{ justifyContent: 'center', alignItems: 'center' }} >
+                                    <Box>
+                                        <Select
+                                            variant="standard"
+                                            sx={{
+                                                fontFamily: "Montserrat",
+                                                fontSize: "16px",
 
-                                      color: "#999999",
-                                      textAlign: "center",
-                                      cursor: "pointer",
-                                      width: "150px",
-                                    }}
-                                    value={selectedAccessType[item.id]}
-                                    onChange={(e) =>
-                                      handleChangeAccessType(e, item.id)
-                                    }
-                                    disabled={disabledProductIdNew[item.id]}
-                                  >
-                                    <MenuItem
-                                      value={null}
-                                      sx={{
-                                        fontFamily: "Montserrat",
-                                        fontSize: "16px",
+                                                color: "#999999",
+                                                textAlign: "center",
+                                                cursor: "pointer",
+                                                width: "150px",
+                                            }}
+                                            value={selectedAccessType[item.id]}
+                                            onChange={(e) =>
+                                                handleChangeAccessType(e, item.id)
+                                            }
+                                            disabled={disabledProductIdNew[item.id]}
+                                        >
+                                            <MenuItem
+                                                value={null}
+                                                sx={{
+                                                    fontFamily: "Montserrat",
+                                                    fontSize: "16px",
 
-                                        color: "#999999",
-                                        textAlign: "center",
-                                        cursor: "pointer",
-                                      }}
-                                    >
-                                      —
-                                    </MenuItem>
-                                    <MenuItem
-                                      value="Электронный"
-                                      sx={{
-                                        fontFamily: "Montserrat",
-                                        fontSize: "16px",
+                                                    color: "#999999",
+                                                    textAlign: "center",
+                                                    cursor: "pointer",
+                                                }}
+                                            >
+                                                —
+                                            </MenuItem>
+                                            <MenuItem
+                                                value="Электронный"
+                                                sx={{
+                                                    fontFamily: "Montserrat",
+                                                    fontSize: "16px",
 
-                                        color: "#999999",
-                                        textAlign: "center",
-                                        cursor: "pointer",
-                                      }}
-                                    >
-                                      Электронный
-                                    </MenuItem>
-                                    <MenuItem
-                                      value="Бумажный"
-                                      sx={{
-                                        fontFamily: "Montserrat",
-                                        fontSize: "16px",
+                                                    color: "#999999",
+                                                    textAlign: "center",
+                                                    cursor: "pointer",
+                                                }}
+                                            >
+                                                Электронный
+                                            </MenuItem>
+                                            <MenuItem
+                                                value="Бумажный"
+                                                sx={{
+                                                    fontFamily: "Montserrat",
+                                                    fontSize: "16px",
 
-                                        color: "#999999",
-                                        textAlign: "center",
-                                        cursor: "pointer",
-                                      }}
-                                    >
-                                      Бумажный
-                                    </MenuItem>
-                                  </Select>
-                        </Box>
-                    </Grid>
-                </Grid>
+                                                    color: "#999999",
+                                                    textAlign: "center",
+                                                    cursor: "pointer",
+                                                }}
+                                            >
+                                                Бумажный
+                                            </MenuItem>
+                                        </Select>
+                                    </Box>
+                                </Grid>
+                            </Grid>
 
-                <Grid container sx={{ height: '50px', color: 'black', fontFamily: "'Montserrat', sans-serif" }} >
+                            <Grid container sx={{ height: '50px', color: 'black', fontFamily: "'Montserrat', sans-serif" }} >
 
-                    <Grid container element xs={6} sx={{ justifyContent: 'flex-start', alignItems: 'center' }} >
-                        <Box sx={{ fontSize: '18px', fontWeight: '500', ml: '25px', color: '#005475' }}>
-                            Начисление
-                        </Box>
-                    </Grid>
+                                <Grid container element xs={6} sx={{ justifyContent: 'flex-start', alignItems: 'center' }} >
+                                    <Box sx={{ fontSize: '18px', fontWeight: '500', ml: '25px', color: '#005475' }}>
+                                        Начисление
+                                    </Box>
+                                </Grid>
 
-                    <Grid container element xs={6} sx={{ justifyContent: 'center', alignItems: 'center' }} >
-                        <Box>
-                        <TextField
-                                    variant="standard"
-                                    sx={{
-                                      width: "80px",
-                                    }}
-                                    value={
-                                      accrual[item.id] ||
-                                      (isFieldCleared[item.id]
-                                        ? ""
-                                        : item.commision)
-                                    }
-                                    onChange={(e) =>
-                                      handleChangeAccrual(e, item.id)
-                                    }
-                                  />
-                        </Box>
-                    </Grid>
-                </Grid>
+                                <Grid container element xs={6} sx={{ justifyContent: 'center', alignItems: 'center' }} >
+                                    <Box>
+                                        <TextField
+                                            variant="standard"
+                                            sx={{
+                                                width: "80px",
+                                            }}
+                                            value={
+                                                accrual[item.id] ||
+                                                (isFieldCleared[item.id]
+                                                    ? ""
+                                                    : item.commision)
+                                            }
+                                            onChange={(e) =>
+                                                handleChangeAccrual(e, item.id)
+                                            }
+                                        />
+                                    </Box>
+                                </Grid>
+                            </Grid>
 
-                <Grid container sx={{ justifyContent: 'center', alignItems: 'center', borderBottom: '3px solid #005475', fontFamily: "'Montserrat', sans-serif" }}>
-                                  <Box sx={{ color: '#005475' }} onClick={() => deleteNew(item.id)}>
+                            <Grid container sx={{ justifyContent: 'center', alignItems: 'center', borderBottom: '3px solid #005475', fontFamily: "'Montserrat', sans-serif" }}>
+                                <Box sx={{ color: '#005475' }} onClick={() => deleteNew(item.id)}>
                                     Удалить
                                     <IconButton>
-                                      <img src={deleteGrey} alt="удалить" />
+                                        <img src={deleteGrey} alt="удалить" />
                                     </IconButton>
-                                  </Box>
-                                </Grid>
-                </>
-            ))}
-            </Grid>
-        </>
+                                </Box>
+                            </Grid>
+                        </>
+                    ))}
+
+                </Grid>
+                <Box
+                    sx={{
+                        position: 'fixed', left: 0, bottom: 0, right: 0, width: '100%', zIndex: 1000, height: '50px',
+                        display: "flex",
+                        backgroundColor: 'white',
+                        justifyContent: "center",
+                        alignItems: 'center',
+                        
+                        gap: "15px",
+                        boxShadow: '0 -1px 1px rgba(0, 0, 0, 0.25)',
+                    }}
+                >
+                    <Button
+                        variant="contained"
+                        onClick={() => handleSave(commisionRecieverId)}
+                        sx={{
+                            textTransform: "none",
+                            backgroundColor: "#005475",
+                            color: "#FFFFFF",
+                            fontFamily: "Montserrat",
+                            fontSize: "14px",
+
+                            "&:hover": {
+                                backgroundColor: "#00435d",
+                            },
+                        }}
+                    >
+                        Сохранить
+                    </Button>
+
+                    <Button
+                        onClick={resetStates}
+                        sx={{
+                            variant: "contained",
+                            textTransform: "none",
+                            backgroundColor: "#CCCCCC",
+                            color: "#000000",
+                            fontSize: "14px",
+
+                            fontFamily: "Montserrat",
+                            border: 0,
+                            "&:hover": {
+                                backgroundColor: "#8E8E8E",
+                                border: 0,
+                            },
+                        }}
+                    >
+                        Сбросить
+                    </Button>
+                </Box>
+
+            </>
+
+    
     )
 }

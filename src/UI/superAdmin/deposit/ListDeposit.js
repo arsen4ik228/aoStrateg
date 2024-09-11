@@ -12,7 +12,8 @@ import {
 
 const ListDeposit = () => {
 
-    const accountId = useParams()
+    const {accountId} = useParams()
+    console.log(accountId)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -37,8 +38,7 @@ const ListDeposit = () => {
   });
 
   useEffect(() => {
-    dispatch(getDeposit(accountId)).then(() => {
-    });
+    dispatch(getDeposit(accountId))
   }, [dispatch, accountId])
   
     return (

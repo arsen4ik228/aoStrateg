@@ -1,11 +1,16 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Header from './Header';
 import Work from './Work';
+import NotificationPrompt from "../../Notification/NotificationPromt";
  function MainCurrentOrder() {
-  return (
+     const [showNotificationPrompt, setShowNotificationPrompt] = useState(false);
+
+     return (
     <>
-    <Header></Header>
-    <Work></Work>
+    <Header onNotificationClick={() => setShowNotificationPrompt(true)}></Header>
+        {showNotificationPrompt && <NotificationPrompt onClose={() => setShowNotificationPrompt(false)} />}
+
+        <Work></Work>
     
     </>
   )
